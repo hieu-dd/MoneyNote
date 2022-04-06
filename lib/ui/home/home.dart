@@ -1,5 +1,6 @@
 import 'package:base_flutter_project/data/services/pokemon/pokemon_api.dart';
 import 'package:base_flutter_project/models/pokemon/pokemon.dart';
+import 'package:base_flutter_project/widgets/home/pokemon_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import '../../utils/routes/routes.dart';
@@ -41,10 +42,16 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: Container(
+        height: 700,
         width: double.infinity,
         color: Theme.of(context).backgroundColor,
-        child: Column(
-          children: pokemons.map((e) => Text(e.name)).toList(),
+        child: GridView.count(
+          primary: false,
+          padding: const EdgeInsets.all(20),
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+          crossAxisCount: 2,
+          children: pokemons.map((e) => PokemonItem(e)).toList(),
         ),
       ),
     );
