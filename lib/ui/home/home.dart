@@ -33,11 +33,14 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text("Home"),
         actions: [
-          InkWell(
-            child: const Icon(Icons.settings),
-            onTap: () {
-              Navigator.of(context).pushNamed(Routes.setting);
-            },
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: InkWell(
+              child: const Icon(Icons.settings),
+              onTap: () {
+                Navigator.of(context).pushNamed(Routes.setting);
+              },
+            ),
           )
         ],
       ),
