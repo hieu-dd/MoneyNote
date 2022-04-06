@@ -1,4 +1,5 @@
 import 'package:base_flutter_project/data/services/pokemon/pokemon_api.dart';
+import 'package:base_flutter_project/models/pokemon/pokemon.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import '../../utils/routes/routes.dart';
@@ -10,7 +11,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final _getIt = GetIt.instance;
-  String pokemons = "Click to load pokemon";
+  List<Pokemon> pokemons = [];
 
   @override
   void initState() {
@@ -40,15 +41,10 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: Container(
+        width: double.infinity,
         color: Theme.of(context).backgroundColor,
-        child: Center(
-          child: InkWell(
-            onTap: () {},
-            child: Text(
-              pokemons,
-              style: Theme.of(context).textTheme.bodyText1,
-            ),
-          ),
+        child: Column(
+          children: pokemons.map((e) => Text(e.name)).toList(),
         ),
       ),
     );
