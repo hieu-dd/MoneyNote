@@ -7,8 +7,22 @@ import 'home/home.dart';
 
 final _getIt = GetIt.instance;
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   final _themeProvider = _getIt.get<ThemeProvider>();
+
+  void getAppTheme() async {
+    await _themeProvider.getDarkMode();
+  }
+  @override
+  void initState() {
+    getAppTheme();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

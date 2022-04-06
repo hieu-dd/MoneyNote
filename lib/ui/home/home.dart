@@ -11,6 +11,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text("Home"),
         actions: [
           InkWell(
             child:const Icon(Icons.settings),
@@ -23,14 +24,9 @@ class HomeScreen extends StatelessWidget {
       body: Container(
         color: Theme.of(context).backgroundColor,
         child: Center(
-          child: InkWell(
-            onTap: () {
-              context.read<ThemeProvider>().toggleDarkMode();
-            },
-            child: Text(
-              "Home1",
-              style: Theme.of(context).textTheme.bodyText1,
-            ),
+          child: Text(
+            "Home1",
+            style: Theme.of(context).textTheme.bodyText1,
           ),
         ),
       ),

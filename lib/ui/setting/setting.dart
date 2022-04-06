@@ -17,7 +17,7 @@ class SettingScreen extends StatelessWidget {
             Switch(
               value: themeData.isDarkMode,
               onChanged: (value) {
-                context.read<ThemeProvider>().toggleDarkMode();
+                context.read<ThemeProvider>().setDarkMode();
               },
             )
           ],
