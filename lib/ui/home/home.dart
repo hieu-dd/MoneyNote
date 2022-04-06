@@ -1,11 +1,29 @@
-import 'package:base_flutter_project/providers/theme/theme.dart';
+import 'package:base_flutter_project/data/services/pokemon/pokemon_api.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
+import 'package:get_it/get_it.dart';
 import '../../utils/routes/routes.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final _getIt = GetIt.instance;
+  String pokemons = "Click to load pokemon";
+
+  @override
+  void initState() {
+    loadPokemons();
+    super.initState();
+  }
+
+  void loadPokemons() async {
+    final pokemons = await _getIt.get<PokemonApi>().getPokemons();
+    setState(() {
+      this.pokemons = pokemons;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +32,7 @@ class HomeScreen extends StatelessWidget {
         title: Text("Home"),
         actions: [
           InkWell(
-            child:const Icon(Icons.settings),
+            child: const Icon(Icons.settings),
             onTap: () {
               Navigator.of(context).pushNamed(Routes.setting);
             },
@@ -24,9 +42,12 @@ class HomeScreen extends StatelessWidget {
       body: Container(
         color: Theme.of(context).backgroundColor,
         child: Center(
-          child: Text(
-            "Home1",
-            style: Theme.of(context).textTheme.bodyText1,
+          child: InkWell(
+            onTap: () {},
+            child: Text(
+              pokemons,
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
           ),
         ),
       ),

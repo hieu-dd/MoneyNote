@@ -11,14 +11,23 @@ class SettingScreen extends StatelessWidget {
         title: Text("Setting"),
       ),
       body: Container(
+        width: double.infinity,
         color: Theme.of(context).backgroundColor,
         child: Column(
           children: [
-            Switch(
-              value: themeData.isDarkMode,
-              onChanged: (value) {
-                context.read<ThemeProvider>().setDarkMode();
-              },
+            Row(
+              children: [
+                Text(
+                  "Dark mode",
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+                Switch(
+                  value: themeData.isDarkMode,
+                  onChanged: (value) {
+                    context.read<ThemeProvider>().setDarkMode();
+                  },
+                )
+              ],
             )
           ],
         ),

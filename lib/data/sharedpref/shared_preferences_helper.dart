@@ -7,6 +7,7 @@ class SharedPreferenceHelper {
 
   // key
   static const THEME_STATUS = "THEME_STATUS";
+  static const AUTH_TOKEN = "AUTH_TOKEN";
 
   // theme
   setDarkTheme(bool value) async {
@@ -15,5 +16,14 @@ class SharedPreferenceHelper {
 
   Future<bool> getDarkTheme() async {
     return _sharedPreference.getBool(THEME_STATUS) ?? false;
+  }
+
+  // auth
+  Future<String?> get authToken async {
+    return _sharedPreference.getString(AUTH_TOKEN);
+  }
+
+  setAuthToken(String value) async {
+    _sharedPreference.setString(AUTH_TOKEN, value);
   }
 }
