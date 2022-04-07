@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:get_it/get_it.dart';
 import '../utils/routes/routes.dart';
 import 'home/home.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 final _getIt = GetIt.instance;
 
@@ -35,8 +36,11 @@ class _MyAppState extends State<MyApp> {
       child: Consumer<ThemeProvider>(
         builder: (context, themeProvider, child) {
           return MaterialApp(
-            theme: themeProvider.getThemeData,
             debugShowCheckedModeBanner: false,
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
+            theme: themeProvider.getThemeData,
             home: HomeScreen(),
             routes: Routes.routes,
           );

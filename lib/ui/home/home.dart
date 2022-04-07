@@ -4,7 +4,7 @@ import 'package:base_flutter_project/widgets/home/pokemon_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import '../../utils/routes/routes.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Home"),
+        title: Text('home.title'.tr()),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 10),

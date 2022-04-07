@@ -1,0 +1,9 @@
+{
+  "home": {
+    "title": "Home"
+  },
+  "setting": {
+    "title": "Setting",
+    "dark_theme": "Dark theme"
+  }
+}
