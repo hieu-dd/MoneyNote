@@ -1,6 +1,7 @@
 import 'package:base_flutter_project/providers/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class SettingScreen extends StatelessWidget {
   @override
@@ -8,7 +9,7 @@ class SettingScreen extends StatelessWidget {
     final themeData = context.watch<ThemeProvider>();
     return Scaffold(
       appBar: AppBar(
-        title: Text("Setting"),
+        title: Text('setting.title'.tr()),
       ),
       body: Container(
         width: double.infinity,
@@ -18,7 +19,7 @@ class SettingScreen extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  "Dark mode",
+                  'setting.dark_theme'.tr(),
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
                 Switch(
