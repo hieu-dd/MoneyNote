@@ -6,9 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:get_it/get_it.dart';
 import '../utils/routes/routes.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:provider/provider.dart';
 
 final _getIt = GetIt.instance;
 
@@ -45,7 +43,9 @@ class _MyAppState extends State<MyApp> {
             localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,
             locale: context.locale,
-            theme: themeProvider.getThemeData,
+            theme: ThemeData(
+              primarySwatch: Colors.green,
+            ),
             home: StreamBuilder<User?>(
               stream: FirebaseAuth.instance.authStateChanges(),
               initialData: null,

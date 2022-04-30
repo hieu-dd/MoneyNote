@@ -1,5 +1,6 @@
 import 'package:money_note/ui/chart/chart_screen.dart';
 import 'package:money_note/ui/home/home.dart';
+import 'package:money_note/ui/setting/setting.dart';
 import 'package:money_note/ui/transactions/transactions_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -18,11 +19,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
 
   void _selectPage(int index) {
     setState(() {
-      _selectedPageIndex = index == 1
-          ? _selectedPageIndex
-          : index > 1
-              ? index - 1
-              : index;
+      _selectedPageIndex = index == 2 ? _selectedPageIndex : index;
     });
   }
 
@@ -36,6 +33,15 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
       {
         "page": ChartScreen(),
         "key": "Report",
+      },
+      {},
+      {
+        "page": SettingScreen(),
+        "key": "Settings",
+      },
+      {
+        "page": SettingScreen(),
+        "key": "Setting",
       }
     ];
     super.initState();
@@ -51,11 +57,19 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
         notchMargin: 4,
         clipBehavior: Clip.antiAlias,
         child: BottomNavigationBar(
+          backgroundColor: Theme.of(context).backgroundColor,
+          selectedItemColor: Theme.of(context).colorScheme.primaryVariant,
+          unselectedItemColor: Colors.grey,
           onTap: _selectPage,
+          currentIndex: _selectedPageIndex,
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.account_balance_wallet_outlined),
               label: 'Transaction',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.bar_chart_outlined),
+              label: 'Report',
             ),
             BottomNavigationBarItem(
               activeIcon: null,
@@ -66,6 +80,10 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
             BottomNavigationBarItem(
               icon: Icon(Icons.bar_chart_outlined),
               label: 'Report',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings_outlined),
+              label: 'Setting',
             ),
           ],
         ),

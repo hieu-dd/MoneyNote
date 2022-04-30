@@ -5,5 +5,16 @@
   "setting": {
     "title": "Cài đặt",
     "dark_theme": "Giao diện tối"
+  },
+  "login": {
+    "title": "Đăng nhập",
+    "user_name": "Tên đăng nhập",
+    "password": "Mật khẩu",
+    "type_user_name": "Nhập tên đăng nhập của bạn",
+    "type_password": "Nhập mật khẩu của bạn",
+    "forgot_password": "Quên mật khẩu",
+    "sign_in_with": "hoặc đăng nhập với",
+    "sign_up_with": "hoặc đăng kí với",
+    "sign_up": "Đăng kí"
   }
 }

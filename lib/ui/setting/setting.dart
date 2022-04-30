@@ -2,8 +2,13 @@ import 'package:money_note/providers/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SettingScreen extends StatelessWidget {
+  void _logout() {
+    FirebaseAuth.instance.signOut();
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeData = context.watch<ThemeProvider>();
@@ -29,6 +34,10 @@ class SettingScreen extends StatelessWidget {
                   },
                 )
               ],
+            ),
+            InkWell(
+              onTap: _logout,
+              child: Text("Logout"),
             )
           ],
         ),

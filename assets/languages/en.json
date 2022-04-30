@@ -5,5 +5,16 @@
   "setting": {
     "title": "Setting",
     "dark_theme": "Dark theme"
+  },
+  "login": {
+    "title": "Login",
+    "user_name": "User name",
+    "password": "Password",
+    "type_user_name": "Type your user name",
+    "type_password": "Type your password",
+    "forgot_password": "Forgot password",
+    "sign_in_with": "or Sign in with using",
+    "sign_up_with": "or Sing up with using",
+    "sign_up": "Signup"
   }
 }
