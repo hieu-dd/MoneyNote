@@ -1,6 +1,6 @@
-import 'package:base_flutter_project/data/network/dio_client.dart';
-import 'package:base_flutter_project/data/services/pokemon/endpoints.dart';
-import 'package:base_flutter_project/models/pokemon/pokemon.dart';
+import 'package:money_note/data/network/dio_client.dart';
+import 'package:money_note/data/services/pokemon/endpoints.dart';
+import 'package:money_note/models/pokemon/pokemon.dart';
 import 'dart:convert';
 
 class PokemonApi {

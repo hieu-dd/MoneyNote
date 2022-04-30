@@ -1,4 +1,4 @@
-import 'package:base_flutter_project/providers/theme/theme.dart';
+import 'package:money_note/providers/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';

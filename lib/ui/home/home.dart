@@ -1,6 +1,6 @@
-import 'package:base_flutter_project/data/services/pokemon/pokemon_api.dart';
-import 'package:base_flutter_project/models/pokemon/pokemon.dart';
-import 'package:base_flutter_project/widgets/home/pokemon_item.dart';
+import 'package:money_note/data/services/pokemon/pokemon_api.dart';
+import 'package:money_note/models/pokemon/pokemon.dart';
+import 'package:money_note/widgets/home/pokemon_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import '../../utils/routes/routes.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:base_flutter_project/models/pokemon/pokemon.dart';
+import 'package:money_note/models/pokemon/pokemon.dart';
 
 class PokemonItem extends StatelessWidget {
   final Pokemon _pokemon;

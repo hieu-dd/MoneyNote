@@ -1,4 +1,4 @@
-import 'package:base_flutter_project/data/services/pokemon/endpoints.dart';
+import 'package:money_note/data/services/pokemon/endpoints.dart';
 import 'package:dio/dio.dart';
 import 'package:logger/logger.dart';
 

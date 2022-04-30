@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "63200691856",
+    "project_id": "money-note-6978a",
+    "storage_bucket": "money-note-6978a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:63200691856:android:0faecdbee49659b025fa15",
+        "android_client_info": {
+          "package_name": "com.d2b.dev.money_note"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "63200691856-tqqc370ssulka2hju9rdr01tqvmq1vob.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.d2b.dev.money_note",
+            "certificate_hash": "6d205e2b1fce627d5a9a99b8e17c6dfe3e2895cd"
+          }
+        },
+        {
+          "client_id": "63200691856-731oun36fc266iu3bs3cei4mbf232eib.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPT9WPpAFCpKJIr31nLOmJHANKxVZ5asE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "63200691856-731oun36fc266iu3bs3cei4mbf232eib.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,6 +1,6 @@
-import 'package:base_flutter_project/ui/chart/chart_screen.dart';
-import 'package:base_flutter_project/ui/home/home.dart';
-import 'package:base_flutter_project/ui/transactions/transactions_screen.dart';
+import 'package:money_note/ui/chart/chart_screen.dart';
+import 'package:money_note/ui/home/home.dart';
+import 'package:money_note/ui/transactions/transactions_screen.dart';
 import 'package:flutter/material.dart';
 
 class BottomBarScreen extends StatefulWidget {
@@ -35,7 +35,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
       },
       {
         "page": ChartScreen(),
-        "key": "Chart",
+        "key": "Report",
       }
     ];
     super.initState();
@@ -45,7 +45,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   Widget build(BuildContext context) {
     final page = _pages[_selectedPageIndex];
     return Scaffold(
-      body: page["page"] as Widget,
+      body: SafeArea(child: page["page"] as Widget),
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
         notchMargin: 4,
@@ -54,7 +54,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
           onTap: _selectPage,
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.wallet_giftcard),
+              icon: Icon(Icons.account_balance_wallet_outlined),
               label: 'Transaction',
             ),
             BottomNavigationBarItem(
@@ -64,8 +64,8 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
               label: "",
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.bar_chart),
-              label: 'Chart',
+              icon: Icon(Icons.bar_chart_outlined),
+              label: 'Report',
             ),
           ],
         ),

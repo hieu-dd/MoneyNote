@@ -1,5 +1,5 @@
-import 'package:base_flutter_project/ui/home/home.dart';
-import 'package:base_flutter_project/ui/setting/setting.dart';
+import 'package:money_note/ui/home/home.dart';
+import 'package:money_note/ui/setting/setting.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../ui/splash/splash_screen.dart';
