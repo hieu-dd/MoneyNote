@@ -3,13 +3,27 @@ import 'package:money_note/models/category/category.dart';
 import 'package:money_note/providers/category/categories.dart';
 import 'package:provider/provider.dart';
 
-class CategoriesScreen extends StatelessWidget {
+class CategoriesScreen extends StatefulWidget {
   Function(Category) selectCategory;
 
   CategoriesScreen({required this.selectCategory});
 
+  @override
+  State<CategoriesScreen> createState() => _CategoriesScreenState();
+}
+
+class _CategoriesScreenState extends State<CategoriesScreen> {
+  var _searchText = "";
+  final _searchController = TextEditingController();
+
+  void _searchCategory(String text) {
+    setState(() {
+      _searchText = text;
+    });
+  }
+
   void _onSelect(BuildContext context, Category category) {
-    selectCategory(category);
+    widget.selectCategory(category);
     _onBack(context);
   }
 
@@ -30,6 +44,9 @@ class CategoriesScreen extends StatelessWidget {
             );
           } else {
             final categories = snapshot.data as List<Category>;
+            final displayCategories = categories
+                .where((element) => element.name.contains(_searchText))
+                .toList();
             return Scaffold(
               appBar: AppBar(
                 leading: IconButton(
@@ -43,6 +60,8 @@ class CategoriesScreen extends StatelessWidget {
                 ),
                 backgroundColor: Colors.white,
                 title: TextField(
+                  controller: _searchController,
+                  onChanged: _searchCategory,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: 'Type a category\'s name',
@@ -54,7 +73,7 @@ class CategoriesScreen extends StatelessWidget {
                   Expanded(
                     child: ListView.builder(
                       itemBuilder: (context, index) {
-                        final category = categories[index];
+                        final category = displayCategories[index];
                         return ListTile(
                           onTap: () {
                             _onSelect(context, category);
@@ -70,7 +89,7 @@ class CategoriesScreen extends StatelessWidget {
                           ),
                         );
                       },
-                      itemCount: categories.length,
+                      itemCount: displayCategories.length,
                     ),
                   )
                 ],
