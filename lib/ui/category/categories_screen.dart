@@ -8,20 +8,36 @@ class CategoriesScreen extends StatelessWidget {
 
   void _onSelect(BuildContext context, Category category) {
     selectCategory(category);
+    _onBack(context);
+  }
+
+  _onBack(BuildContext context) {
     Navigator.of(context).pop();
   }
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text("Categories"),
-      ),
-      body: Center(
-        child: InkWell(
-          onTap: () => {_onSelect(context, Category(id: "1", name: "Ahhi"))},
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: theme.primaryColor,
+          ),
+          onPressed: () {
+            _onBack(context);
+          },
+        ),
+        backgroundColor: Colors.white,
+        title: TextField(
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            hintText: 'Type a category\'s name',
+          ),
         ),
       ),
+      body: Column(children: [],),
     );
   }
 }
