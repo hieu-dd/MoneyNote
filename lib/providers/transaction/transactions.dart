@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money_note/models/category.dart';
+import 'package:money_note/models/category/category.dart';
 import 'package:money_note/models/transaction/transaction.dart';
 
 class TransactionsProvider with ChangeNotifier {

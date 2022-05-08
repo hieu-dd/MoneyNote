@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money_note/models/category.dart';
+import 'package:money_note/models/category/category.dart';
 import 'package:money_note/models/transaction/transaction.dart';
 import 'package:money_note/providers/transaction/transactions.dart';
 import 'package:money_note/ui/category/categories_screen.dart';

@@ -1,4 +1,4 @@
-import 'package:money_note/models/category.dart';
+import 'package:money_note/models/category/category.dart';
 
 class Transaction {
   double amount;
