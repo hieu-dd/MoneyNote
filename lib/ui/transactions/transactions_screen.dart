@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:money_note/providers/transaction/transactions.dart';
+import 'package:provider/provider.dart';
 
 class TransactionsScreen extends StatefulWidget {
   @override
@@ -8,8 +10,13 @@ class TransactionsScreen extends StatefulWidget {
 class _TransactionsScreenState extends State<TransactionsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text("Transaction"),
+    final transactionsProvider = context.watch<TransactionsProvider>();
+
+    return Scaffold(
+      body: Column(
+        children:
+            transactionsProvider.transactions.map((e) => Text(e.note)).toList(),
+      ),
     );
   }
 }

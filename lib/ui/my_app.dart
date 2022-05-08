@@ -1,5 +1,6 @@
 import 'package:money_note/providers/theme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:money_note/providers/transaction/transactions.dart';
 import 'package:money_note/ui/bottom_bar.dart';
 import 'package:money_note/ui/login/login.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +18,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final _themeProvider = _getIt.get<ThemeProvider>();
+  final _transactionsProvider = _getIt.get<TransactionsProvider>();
 
   void getAppTheme() async {
     await _themeProvider.getDarkMode();
@@ -34,6 +36,9 @@ class _MyAppState extends State<MyApp> {
       providers: [
         ChangeNotifierProvider<ThemeProvider>(
           create: (_) => _themeProvider,
+        ),
+        ChangeNotifierProvider<TransactionsProvider>(
+          create: (_) => _transactionsProvider,
         )
       ],
       child: Consumer<ThemeProvider>(

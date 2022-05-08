@@ -4,7 +4,7 @@ import 'package:money_note/models/category.dart';
 class CategoriesScreen extends StatelessWidget {
   Function(Category) selectCategory;
 
-  CategoriesScreen(this.selectCategory);
+  CategoriesScreen({required this.selectCategory});
 
   void _onSelect(BuildContext context, Category category) {
     selectCategory(category);

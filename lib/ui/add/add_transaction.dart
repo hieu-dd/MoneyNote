@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:money_note/models/category.dart';
+import 'package:money_note/models/transaction/transaction.dart';
+import 'package:money_note/providers/transaction/transactions.dart';
 import 'package:money_note/ui/category/categories_screen.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import '../../utils/number_formater.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class AddTransaction extends StatefulWidget {
   static const routeName = "/add_transaction";
@@ -19,6 +23,14 @@ class _AddTransactionState extends State<AddTransaction> {
   final TextEditingController _timeController = TextEditingController();
 
   DateTime? _selectedTime;
+  Category? _category;
+
+  void _onSelectCategory(Category category) {
+    setState(() {
+      _category = category;
+      _categoryController.text = category.name;
+    });
+  }
 
   void _selectDateTime() {
     final now = DateTime.now();
@@ -37,6 +49,18 @@ class _AddTransactionState extends State<AddTransaction> {
     );
   }
 
+  void _onSave(BuildContext context) {
+    final _transactionsProviders = context.read<TransactionsProvider>();
+    final _transaction = Transaction(
+      amount: double.tryParse(_amountController.text) ?? 0.0,
+      category: _category!,
+      note: _noteController.text,
+      time: _selectedTime!,
+    );
+    _transactionsProviders.addTransaction(_transaction);
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -49,8 +73,7 @@ class _AddTransactionState extends State<AddTransaction> {
         actions: [
           InkWell(
             onTap: () => {
-              _amountController.text = "1234"
-              // Navigator.of(context).pop()
+              _onSave(context),
             },
             child: Padding(
               padding: const EdgeInsets.only(right: 10),
@@ -99,9 +122,8 @@ class _AddTransactionState extends State<AddTransaction> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => CategoriesScreen((category) => {
-                              _categoryController.text = category.name,
-                            }),
+                        builder: (context) =>
+                            CategoriesScreen(selectCategory: _onSelectCategory),
                       ),
                     )
                   },

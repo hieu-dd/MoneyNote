@@ -1,6 +1,7 @@
 import 'package:money_note/data/sharedpref/shared_preferences_helper.dart';
 import 'package:money_note/providers/theme/theme.dart';
 import 'package:get_it/get_it.dart';
+import 'package:money_note/providers/transaction/transactions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dio/dio.dart';
 
@@ -14,6 +15,7 @@ Future<void> configureDependencies() async {
     await getIt.getAsync<SharedPreferences>(),
   ));
   getIt.registerSingleton(ThemeProvider(getIt.get<SharedPreferenceHelper>()));
+  getIt.registerSingleton(TransactionsProvider());
   getIt.registerSingleton<Dio>(Module.provideDio(
     getIt<SharedPreferenceHelper>(),
   ));
