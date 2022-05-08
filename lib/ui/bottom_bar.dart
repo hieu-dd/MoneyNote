@@ -1,5 +1,5 @@
+import 'package:money_note/ui/add/add_transaction.dart';
 import 'package:money_note/ui/chart/chart_screen.dart';
-import 'package:money_note/ui/home/home.dart';
 import 'package:money_note/ui/setting/setting.dart';
 import 'package:money_note/ui/transactions/transactions_screen.dart';
 import 'package:flutter/material.dart';
@@ -92,7 +92,9 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
           FloatingActionButtonLocation.miniCenterDocked,
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pushNamed(AddTransaction.routeName);
+        },
       ),
     );
   }
