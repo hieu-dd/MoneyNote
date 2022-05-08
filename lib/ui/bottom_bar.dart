@@ -37,7 +37,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
       {},
       {
         "page": SettingScreen(),
-        "key": "Settings",
+        "key": "Notifications",
       },
       {
         "page": SettingScreen(),
@@ -78,8 +78,8 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
               label: "",
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.bar_chart_outlined),
-              label: 'Report',
+              icon: Icon(Icons.notifications_active_outlined),
+              label: 'Notification',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.settings_outlined),

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:money_note/models/category.dart';
 import 'package:money_note/ui/category/categories_screen.dart';
-import 'package:money_note/utils/routes/routes.dart';
-
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import '../../utils/number_formater.dart';
+import 'package:intl/intl.dart';
 
 class AddTransaction extends StatefulWidget {
   static const routeName = "/add_transaction";
@@ -19,6 +17,25 @@ class _AddTransactionState extends State<AddTransaction> {
   final TextEditingController _categoryController = TextEditingController();
   final TextEditingController _noteController = TextEditingController();
   final TextEditingController _timeController = TextEditingController();
+
+  DateTime? _selectedTime;
+
+  void _selectDateTime() {
+    final now = DateTime.now();
+    DatePicker.showDateTimePicker(
+      context,
+      showTitleActions: true,
+      minTime: now.subtract(const Duration(days: 365)),
+      onConfirm: (date) {
+        setState(() {
+          _selectedTime = date;
+          _timeController.text = DateFormat('yyyy-MM-dd – kk:mm').format(date);
+        });
+      },
+      currentTime: now,
+      locale: LocaleType.vi,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,11 +99,9 @@ class _AddTransactionState extends State<AddTransaction> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => CategoriesScreen(
-                          (category) => {
-                            _categoryController.text = category.name,
-                          },
-                        ),
+                        builder: (context) => CategoriesScreen((category) => {
+                              _categoryController.text = category.name,
+                            }),
                       ),
                     )
                   },
@@ -108,14 +123,17 @@ class _AddTransactionState extends State<AddTransaction> {
                     prefixIcon: Icon(Icons.note),
                   ),
                 ),
-                TextFormField(
-                  controller: _timeController,
-                  enabled: false,
-                  style: textStyle30,
-                  decoration: InputDecoration(
-                    hintText: "Today",
-                    prefixIcon: Icon(Icons.calendar_today),
-                    disabledBorder: defaultBorder,
+                InkWell(
+                  onTap: _selectDateTime,
+                  child: TextFormField(
+                    controller: _timeController,
+                    enabled: false,
+                    style: textStyle30,
+                    decoration: InputDecoration(
+                      hintText: "Today",
+                      prefixIcon: Icon(Icons.calendar_today),
+                      disabledBorder: defaultBorder,
+                    ),
                   ),
                 ),
               ],
