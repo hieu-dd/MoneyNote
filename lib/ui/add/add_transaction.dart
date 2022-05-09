@@ -7,11 +7,10 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import '../../utils/number_formater.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:money_note/utils/ext/StringExt.dart';
+import 'package:money_note/utils/ext/string_ext.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class AddTransaction extends StatefulWidget {
-
   @override
   State<AddTransaction> createState() => _AddTransactionState();
 }
@@ -56,7 +55,7 @@ class _AddTransactionState extends State<AddTransaction> {
     if (_addFormKey.currentState!.validate()) {
       final _transactionsProviders = context.read<TransactionsProvider>();
       final _transaction = Transaction(
-        amount: double.tryParse(_amountController.text) ?? 0.0,
+        amount: _amountController.text.parseToDouble(),
         category: _category!,
         note: _noteController.text,
         time: _selectedTime!,
@@ -102,7 +101,7 @@ class _AddTransactionState extends State<AddTransaction> {
                   TextFormField(
                     controller: _amountController,
                     validator: (value) {
-                      if (double.tryParse(value.orEmpty()) != null) {
+                      if (value.parseToDouble() > 0.0) {
                         return null;
                       } else {
                         return 'Error format';
