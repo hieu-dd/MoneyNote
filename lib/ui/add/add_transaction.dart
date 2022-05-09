@@ -8,9 +8,9 @@ import '../../utils/number_formater.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:money_note/utils/ext/StringExt.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class AddTransaction extends StatefulWidget {
-  static const routeName = "/add_transaction";
 
   @override
   State<AddTransaction> createState() => _AddTransactionState();
@@ -18,13 +18,14 @@ class AddTransaction extends StatefulWidget {
 
 class _AddTransactionState extends State<AddTransaction> {
   final _addFormKey = GlobalKey<FormState>();
-  final TextEditingController _amountController =
-      TextEditingController(text: "0");
+  final TextEditingController _amountController = TextEditingController();
   final TextEditingController _categoryController = TextEditingController();
   final TextEditingController _noteController = TextEditingController();
-  final TextEditingController _timeController = TextEditingController();
+  final TextEditingController _timeController = TextEditingController(
+    text: DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.now()),
+  );
 
-  DateTime? _selectedTime;
+  DateTime _selectedTime = DateTime.now();
   Category? _category;
 
   void _onSelectCategory(Category category) {
@@ -73,7 +74,7 @@ class _AddTransactionState extends State<AddTransaction> {
     );
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add transaction"),
+        title: Text('add_transaction.title'.tr()),
         actions: [
           InkWell(
             onTap: () => {
@@ -131,8 +132,9 @@ class _AddTransactionState extends State<AddTransaction> {
                   ),
                   TextFormField(
                     controller: _categoryController,
-                    validator: (value) =>
-                        value.isNullOrEmpty() ? 'Not empty' : null,
+                    validator: (value) => value.isNullOrEmpty()
+                        ? 'add_transaction.not_empty'.tr()
+                        : null,
                     readOnly: true,
                     onTap: () => {
                       Navigator.push(
@@ -143,32 +145,34 @@ class _AddTransactionState extends State<AddTransaction> {
                         ),
                       )
                     },
-                    style: textStyle30,
+                    style: theme.textTheme.headline5,
                     decoration: InputDecoration(
-                        hintText: "Select Category",
-                        prefixIcon: Icon(Icons.category),
+                        hintText: 'add_transaction.select_category'.tr(),
+                        prefixIcon: const Icon(Icons.category),
                         disabledBorder: defaultBorder),
                   ),
                   TextFormField(
-                    validator: (value) =>
-                        value.isNullOrEmpty() ? 'Not empty' : null,
+                    validator: (value) => value.isNullOrEmpty()
+                        ? 'add_transaction.not_empty'.tr()
+                        : null,
                     controller: _noteController,
-                    style: textStyle30,
+                    style: theme.textTheme.headline5,
                     decoration: InputDecoration(
-                      hintText: "Write node",
-                      prefixIcon: Icon(Icons.note),
+                      hintText: 'add_transaction.write_note'.tr(),
+                      prefixIcon: const Icon(Icons.note),
                     ),
                   ),
                   TextFormField(
-                    validator: (value) =>
-                        value.isNullOrEmpty() ? 'Not empty' : null,
+                    validator: (value) => value.isNullOrEmpty()
+                        ? 'add_transaction.not_empty'.tr()
+                        : null,
                     controller: _timeController,
+                    style: theme.textTheme.headline5,
                     readOnly: true,
-                    style: textStyle30,
                     onTap: _selectDateTime,
                     decoration: InputDecoration(
-                      hintText: "Today",
-                      prefixIcon: Icon(Icons.calendar_today),
+                      hintText: 'add_transaction.today'.tr(),
+                      prefixIcon: const Icon(Icons.calendar_today),
                       disabledBorder: defaultBorder,
                     ),
                   ),

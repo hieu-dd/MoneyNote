@@ -16,5 +16,12 @@
     "sign_in_with": "hoặc đăng nhập với",
     "sign_up_with": "hoặc đăng kí với",
     "sign_up": "Đăng kí"
+  },
+  "add_transaction": {
+    "title": "Thêm giao dịch",
+    "not_empty": "Không được bỏ trống",
+    "select_category": "Chọn category",
+    "write_note": "Ghi chú",
+    "today": "Hôm nay"
   }
 }

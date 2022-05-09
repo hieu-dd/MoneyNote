@@ -3,10 +3,9 @@ import 'package:money_note/ui/chart/chart_screen.dart';
 import 'package:money_note/ui/setting/setting.dart';
 import 'package:money_note/ui/transactions/transactions_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:money_note/utils/routes/routes.dart';
 
 class BottomBarScreen extends StatefulWidget {
-  static const routeName = "/main_screen";
-
   const BottomBarScreen({Key? key}) : super(key: key);
 
   @override
@@ -93,7 +92,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {
-          Navigator.of(context).pushNamed(AddTransaction.routeName);
+          Navigator.of(context).pushNamed(Routes.addTransaction);
         },
       ),
     );

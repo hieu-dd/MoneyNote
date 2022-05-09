@@ -16,5 +16,12 @@
     "sign_in_with": "or Sign in with using",
     "sign_up_with": "or Sing up with using",
     "sign_up": "Signup"
+  },
+  "add_transaction": {
+    "title": "Add Transaction",
+    "not_empty": "Not empty",
+    "select_category": "Select category",
+    "write_note": "Write note",
+    "today": "Today"
   }
 }
