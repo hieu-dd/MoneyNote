@@ -56,9 +56,9 @@ class _AddTransactionState extends State<AddTransaction> {
       final _transactionsProviders = context.read<TransactionsProvider>();
       final _transaction = Transaction(
         amount: _amountController.text.parseToDouble(),
-        category: _category!,
+        categoryId: _category!.id,
         note: _noteController.text,
-        time: _selectedTime!,
+        time: _selectedTime,
       );
       _transactionsProviders.addTransaction(_transaction);
       Navigator.of(context).pop();

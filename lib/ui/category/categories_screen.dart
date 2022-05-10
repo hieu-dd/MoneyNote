@@ -56,7 +56,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         backgroundColor: Colors.white,
         title: TextField(
           controller: _searchController,
-          onChanged: (text){
+          onChanged: (text) {
             _searchCategories(text);
           },
           decoration: InputDecoration(

@@ -9,6 +9,7 @@ import 'package:get_it/get_it.dart';
 import '../utils/routes/routes.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:hive/hive.dart';
 
 final _getIt = GetIt.instance;
 
@@ -30,6 +31,12 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     getAppTheme();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    Hive.close();
+    super.dispose();
   }
 
   @override

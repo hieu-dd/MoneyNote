@@ -5,6 +5,9 @@ import 'package:provider/provider.dart';
 import 'package:money_note/models/transaction/transaction.dart';
 import 'package:intl/intl.dart';
 import 'package:money_note/utils/ext/list_ext.dart';
+import 'package:money_note/utils/ext/double_ext.dart';
+
+import '../../providers/category/categories.dart';
 
 class TransactionsScreen extends StatefulWidget {
   @override
@@ -16,6 +19,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final transactionsProvider = context.watch<TransactionsProvider>();
+    final categoriesProvider = context.watch<CategoriesProvider>();
     final items = convertTransactionsToItems(transactionsProvider.transactions);
     return Scaffold(
       appBar: AppBar(
@@ -35,7 +39,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
               height: 2,
             ),
             Text(
-              NumberFormat("#,###").format(transactionsProvider.spentAmount),
+              transactionsProvider.spentAmount.formatMoney(),
               style: theme.textTheme.subtitle2,
             ),
           ],
@@ -59,6 +63,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                   final item = items[index];
                   if (item.type == Type.header) {
                     final time = item.time;
+                    final spent = transactionsProvider.spentDay(time);
                     return Container(
                       color: Colors.white,
                       child: ListTile(
@@ -75,20 +80,28 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                         ),
                         title: Text(DateFormat('EEEE').format(time)),
                         subtitle: Text(DateFormat('MMMM-yyyy').format(time)),
-                        trailing: Text("1.000.000 đ"),
+                        trailing: Text(
+                          spent.formatMoney(),
+                          style: theme.textTheme.headlineSmall!
+                              .copyWith(color: Colors.pink),
+                        ),
                       ),
                     );
                   } else {
                     final transaction = item.transaction!;
+                    final category =
+                        categoriesProvider.findById(transaction.categoryId);
                     return Container(
                       color: Colors.white,
                       child: ListTile(
                         leading: CircleAvatar(
-                          child: Icon(transaction.category.icon),
+                          child: Icon(category?.icon),
                         ),
-                        title: Text(transaction.category.name),
+                        title: Text(category?.name ?? ""),
                         subtitle: Text(transaction.note),
-                        trailing: Text(transaction.amount.toString()),
+                        trailing: Text(
+                          transaction.amount.formatMoney(),
+                        ),
                       ),
                     );
                   }
