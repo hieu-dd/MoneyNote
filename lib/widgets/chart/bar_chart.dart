@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:money_note/providers/transaction/transactions.dart';
+import '../../models/transaction/transaction.dart';
+import 'package:money_note/utils/ext/list_ext.dart';
+import 'package:money_note/utils/ext/time_ext.dart';
+import 'package:money_note/utils/ext/double_ext.dart';
+import 'package:provider/provider.dart';
+import 'dart:math';
 
 class TransactionsBarChart extends StatefulWidget {
-  const TransactionsBarChart({Key? key}) : super(key: key);
+  List<Transaction> transactions;
+  ChartType type;
+
+  TransactionsBarChart({required this.transactions, required this.type});
 
   @override
   State<TransactionsBarChart> createState() => _TransactionsBarChartState();
@@ -15,43 +25,25 @@ class _TransactionsBarChartState extends State<TransactionsBarChart> {
 
   late List<BarChartGroupData> rawBarGroups;
   late List<BarChartGroupData> showingBarGroups;
-
+  late List<TransactionChartItem> _chartItems;
+  late double _delta;
   int touchedGroupIndex = -1;
 
   @override
-  void initState() {
-    super.initState();
-    final barGroup1 = makeGroupData(0, 5, 12);
-    final barGroup2 = makeGroupData(1, 16, 12);
-    final barGroup3 = makeGroupData(2, 18, 5);
-    final barGroup4 = makeGroupData(3, 20, 16);
-    final barGroup5 = makeGroupData(4, 17, 6);
-    final barGroup6 = makeGroupData(5, 19, 1.5);
-    final barGroup7 = makeGroupData(6, 10, 1.5);
-    final items = [
-      barGroup1,
-      barGroup2,
-      barGroup3,
-      barGroup4,
-      barGroup5,
-      barGroup6,
-      barGroup7,
-      barGroup1,
-      barGroup2,
-      barGroup3,
-      barGroup4,
-      barGroup5,
-      barGroup6,
-      barGroup7,
-    ];
-
-    rawBarGroups = items;
-
-    showingBarGroups = rawBarGroups;
-  }
-
-  @override
   Widget build(BuildContext context) {
+    _chartItems = TransactionChartItem.buildFromTransactions(
+      widget.transactions,
+      widget.type,
+    );
+    final maxIncome = _chartItems.map((e) => e.income).reduce(max);
+    final maxExpensive = _chartItems.map((e) => e.expensive).reduce(max);
+    _delta = max(maxIncome, maxExpensive) / 19;
+    rawBarGroups = _chartItems.map((e) {
+      var index = _chartItems.indexOf(e);
+      return makeGroupData(index, e.income / _delta, e.expensive / _delta);
+    }).toList();
+    showingBarGroups = rawBarGroups;
+
     return AspectRatio(
       aspectRatio: 1,
       child: Card(
@@ -91,87 +83,97 @@ class _TransactionsBarChartState extends State<TransactionsBarChart> {
                 height: 38,
               ),
               Expanded(
-                child: BarChart(
-                  BarChartData(
-                    maxY: 20,
-                    barTouchData: BarTouchData(
-                        touchTooltipData: BarTouchTooltipData(
-                          tooltipBgColor: Colors.grey,
-                          getTooltipItem: (_a, _b, _c, _d) => null,
-                        ),
-                        touchCallback: (FlTouchEvent event, response) {
-                          if (response == null || response.spot == null) {
-                            setState(() {
-                              touchedGroupIndex = -1;
-                              showingBarGroups = List.of(rawBarGroups);
-                            });
-                            return;
-                          }
-
-                          touchedGroupIndex =
-                              response.spot!.touchedBarGroupIndex;
-
-                          setState(() {
-                            if (!event.isInterestedForInteractions) {
-                              touchedGroupIndex = -1;
-                              showingBarGroups = List.of(rawBarGroups);
-                              return;
-                            }
-                            showingBarGroups = List.of(rawBarGroups);
-                            if (touchedGroupIndex != -1) {
-                              var sum = 0.0;
-                              for (var rod
-                                  in showingBarGroups[touchedGroupIndex]
-                                      .barRods) {
-                                sum += rod.toY;
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Container(
+                    width: 500,
+                    height: double.infinity,
+                    child: BarChart(
+                      BarChartData(
+                        maxY: 20,
+                        barTouchData: BarTouchData(
+                            touchTooltipData: BarTouchTooltipData(
+                              tooltipBgColor: Colors.grey,
+                              getTooltipItem: (_a, _b, _c, _d) => null,
+                            ),
+                            touchCallback: (FlTouchEvent event, response) {
+                              if (response == null || response.spot == null) {
+                                setState(() {
+                                  touchedGroupIndex = -1;
+                                  showingBarGroups = List.of(rawBarGroups);
+                                });
+                                return;
                               }
-                              final avg = sum /
-                                  showingBarGroups[touchedGroupIndex]
-                                      .barRods
-                                      .length;
 
-                              showingBarGroups[touchedGroupIndex] =
-                                  showingBarGroups[touchedGroupIndex].copyWith(
-                                barRods: showingBarGroups[touchedGroupIndex]
-                                    .barRods
-                                    .map((rod) {
-                                  return rod.copyWith(toY: avg);
-                                }).toList(),
-                              );
-                            }
-                          });
-                        }),
-                    titlesData: FlTitlesData(
-                      show: true,
-                      rightTitles: AxisTitles(
-                        sideTitles: SideTitles(showTitles: false),
-                      ),
-                      topTitles: AxisTitles(
-                        sideTitles: SideTitles(showTitles: false),
-                      ),
-                      bottomTitles: AxisTitles(
-                        sideTitles: SideTitles(
-                          showTitles: true,
-                          getTitlesWidget: bottomTitles,
-                          reservedSize: 42,
+                              touchedGroupIndex =
+                                  response.spot!.touchedBarGroupIndex;
+
+                              setState(() {
+                                if (!event.isInterestedForInteractions) {
+                                  touchedGroupIndex = -1;
+                                  showingBarGroups = List.of(rawBarGroups);
+                                  return;
+                                }
+                                showingBarGroups = List.of(rawBarGroups);
+                                if (touchedGroupIndex != -1) {
+                                  var sum = 0.0;
+                                  for (var rod
+                                      in showingBarGroups[touchedGroupIndex]
+                                          .barRods) {
+                                    sum += rod.toY;
+                                  }
+                                  final avg = sum /
+                                      showingBarGroups[touchedGroupIndex]
+                                          .barRods
+                                          .length;
+
+                                  showingBarGroups[touchedGroupIndex] =
+                                      showingBarGroups[touchedGroupIndex]
+                                          .copyWith(
+                                    barRods: showingBarGroups[touchedGroupIndex]
+                                        .barRods
+                                        .map((rod) {
+                                      return rod.copyWith(toY: avg);
+                                    }).toList(),
+                                  );
+                                }
+                              });
+                            }),
+                        titlesData: FlTitlesData(
+                          show: true,
+                          rightTitles: AxisTitles(
+                            sideTitles: SideTitles(showTitles: false),
+                          ),
+                          topTitles: AxisTitles(
+                            sideTitles: SideTitles(showTitles: false),
+                          ),
+                          bottomTitles: AxisTitles(
+                            sideTitles: SideTitles(
+                              showTitles: true,
+                              getTitlesWidget: (value, meta) {
+                                final titles =
+                                    _chartItems.map((e) => e.title).toList();
+                                return bottomTitles(titles, value, meta);
+                              },
+                              reservedSize: 42,
+                            ),
+                          ),
+                          leftTitles: AxisTitles(
+                            sideTitles: SideTitles(
+                              showTitles: true,
+                              reservedSize: 28,
+                              interval: 1,
+                              getTitlesWidget: leftTitles,
+                            ),
+                          ),
                         ),
-                      ),
-                      leftTitles: AxisTitles(
-                        sideTitles: SideTitles(
-                          showTitles: true,
-                          reservedSize: 28,
-                          interval: 1,
-                          getTitlesWidget: (value, meta) {
-                            return leftTitles(19.0, value, meta);
-                          },
+                        borderData: FlBorderData(
+                          show: false,
                         ),
+                        barGroups: showingBarGroups,
+                        gridData: FlGridData(show: false),
                       ),
                     ),
-                    borderData: FlBorderData(
-                      show: false,
-                    ),
-                    barGroups: showingBarGroups,
-                    gridData: FlGridData(show: false),
                   ),
                 ),
               ),
@@ -185,28 +187,29 @@ class _TransactionsBarChartState extends State<TransactionsBarChart> {
     );
   }
 
-  Widget leftTitles(double maxValue, double value, TitleMeta meta) {
+  Widget leftTitles(double value, TitleMeta meta) {
     const style = TextStyle(
       color: Color(0xff7589a2),
       fontWeight: FontWeight.bold,
       fontSize: 10,
     );
-    final int delta = maxValue ~/ 4;
-    String text;
-    if (value % delta == 0) {
-      return Text("${value}K", style: style);
+    if (value % 4 == 0) {
+      return Text((value * _delta).formatMoney(), style: style);
     } else {
       return Container();
     }
   }
 
-  Widget bottomTitles(double value, TitleMeta meta) {
+  Widget bottomTitles(List<String> titles, double value, TitleMeta meta) {
     const style = TextStyle(
       color: Color(0xff7589a2),
       fontWeight: FontWeight.bold,
       fontSize: 14,
     );
-    Widget text = Text(value.toString(),style: style,);
+    Widget text = Text(
+      titles[value.toInt()],
+      style: style,
+    );
 
     return Padding(padding: const EdgeInsets.only(top: 20), child: text);
   }
@@ -273,4 +276,72 @@ class _TransactionsBarChartState extends State<TransactionsBarChart> {
       ],
     );
   }
+}
+
+class TransactionChartItem {
+  String title;
+  double income;
+  double expensive;
+
+  TransactionChartItem({
+    required this.title,
+    required this.income,
+    required this.expensive,
+  });
+
+  static List<TransactionChartItem> buildFromTransactions(
+    List<Transaction> transactions,
+    ChartType type,
+  ) {
+    final times = transactions.map((e) => e.time).toList()..sort();
+    List<DateTime> uniqueTimes;
+    switch (type) {
+      case ChartType.day:
+        uniqueTimes = times.unique((t) => "${t.day}${t.month}${t.year}");
+        break;
+      case ChartType.month:
+        uniqueTimes = times.unique((t) => "${t.month}${t.year}");
+        break;
+      default:
+        uniqueTimes = times.unique((t) => "${t.year}");
+    }
+    return uniqueTimes.map((time) {
+      String title;
+      double income;
+      double expensive;
+      switch (type) {
+        case ChartType.day:
+          title = "${time.day}/${time.month}";
+          expensive = transactions
+              .where((element) => element.time.isSameDay(time))
+              .fold(0, (previous, current) => previous + current.amount);
+          income = 0;
+          break;
+        case ChartType.month:
+          title = "${time.month}/${time.year}";
+          expensive = transactions
+              .where((element) => element.time.isSameMonth(time))
+              .fold(0, (previous, current) => previous + current.amount);
+          income = 0;
+          break;
+        default:
+          title = "${time.day}/${time.month}";
+          expensive = transactions
+              .where((element) => element.time.year == time.year)
+              .fold(0, (previous, current) => previous + current.amount);
+          income = 0;
+      }
+      return TransactionChartItem(
+        title: title,
+        income: income,
+        expensive: expensive,
+      );
+    }).toList();
+  }
+}
+
+enum ChartType {
+  day,
+  month,
+  year,
 }
