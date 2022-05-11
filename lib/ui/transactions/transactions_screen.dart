@@ -95,9 +95,9 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                       color: Colors.white,
                       child: ListTile(
                         leading: CircleAvatar(
-                          child: Icon(category?.icon),
+                          child: Icon(category.icon),
                         ),
-                        title: Text(category?.name ?? ""),
+                        title: Text(category.name),
                         subtitle: Text(transaction.note),
                         trailing: Text(
                           transaction.amount.formatMoney(),

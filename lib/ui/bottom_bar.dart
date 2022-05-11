@@ -26,7 +26,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   void initState() {
     _pages = [
       {
-        "page": TransactionsScreen(),
+        "page": ChartScreen(),
         "key": "Transaction",
       },
       {
