@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:money_note/providers/category/categories.dart';
+import '../../utils/ext/list_ext.dart';
+import '../../models/transaction/transaction.dart';
+import 'package:provider/provider.dart';
 
 class TransactionsPieChart extends StatefulWidget {
+  final List<TransactionPieCharItem> items;
+
+  TransactionsPieChart({required this.items});
+
   @override
   State<TransactionsPieChart> createState() => _TransactionsPieChartState();
 }
@@ -11,6 +19,33 @@ class _TransactionsPieChartState extends State<TransactionsPieChart> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final categoriesProvider = context.watch<CategoriesProvider>();
+
+    final sections = widget.items.mapIndexed((e, i) {
+      final isTouched = false;
+      // final isTouched = i == touchedIndex;
+      final fontSize = isTouched ? 20.0 : 16.0;
+      final radius = isTouched ? 110.0 : 100.0;
+      final widgetSize = isTouched ? 55.0 : 40.0;
+      final category = categoriesProvider.findById(e.categoryId);
+      return PieChartSectionData(
+        color: category.color,
+        value: e.value.toDouble(),
+        title: "${e.value} %",
+        radius: radius,
+        titleStyle: TextStyle(
+            fontSize: fontSize,
+            fontWeight: FontWeight.bold,
+            color: Colors.white),
+        badgeWidget: _Badge(
+          category.icon,
+          size: widgetSize,
+          borderColor: category.color ?? theme.primaryColorDark,
+        ),
+        badgePositionPercentageOffset: .98,
+      );
+    }).toList();
     return PieChart(
       PieChartData(
           pieTouchData: PieTouchData(
@@ -31,100 +66,18 @@ class _TransactionsPieChartState extends State<TransactionsPieChart> {
           ),
           sectionsSpace: 0,
           centerSpaceRadius: 0,
-          sections: showingSections()),
+          sections: sections),
     );
-  }
-
-  List<PieChartSectionData> showingSections() {
-    return List.generate(4, (i) {
-      final isTouched = i == touchedIndex;
-      final fontSize = isTouched ? 20.0 : 16.0;
-      final radius = isTouched ? 110.0 : 100.0;
-      final widgetSize = isTouched ? 55.0 : 40.0;
-
-      switch (i) {
-        case 0:
-          return PieChartSectionData(
-            color: const Color(0xff0293ee),
-            value: 40,
-            title: '40%',
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: const Color(0xffffffff)),
-            badgeWidget: _Badge(
-              'assets/ophthalmology-svgrepo-com.svg',
-              size: widgetSize,
-              borderColor: const Color(0xff0293ee),
-            ),
-            badgePositionPercentageOffset: .98,
-          );
-        case 1:
-          return PieChartSectionData(
-            color: const Color(0xfff8b250),
-            value: 30,
-            title: '30%',
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: const Color(0xffffffff)),
-            badgeWidget: _Badge(
-              'assets/librarian-svgrepo-com.svg',
-              size: widgetSize,
-              borderColor: const Color(0xfff8b250),
-            ),
-            badgePositionPercentageOffset: .98,
-          );
-        case 2:
-          return PieChartSectionData(
-            color: const Color(0xff845bef),
-            value: 16,
-            title: '16%',
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: const Color(0xffffffff)),
-            badgeWidget: _Badge(
-              'assets/fitness-svgrepo-com.svg',
-              size: widgetSize,
-              borderColor: const Color(0xff845bef),
-            ),
-            badgePositionPercentageOffset: .98,
-          );
-        case 3:
-          return PieChartSectionData(
-            color: const Color(0xff13d38e),
-            value: 15,
-            title: '15%',
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: const Color(0xffffffff)),
-            badgeWidget: _Badge(
-              'assets/worker-svgrepo-com.svg',
-              size: widgetSize,
-              borderColor: const Color(0xff13d38e),
-            ),
-            badgePositionPercentageOffset: .98,
-          );
-        default:
-          throw 'Oh no';
-      }
-    });
   }
 }
 
 class _Badge extends StatelessWidget {
-  final String svgAsset;
+  final IconData? iconData;
   final double size;
   final Color borderColor;
 
   const _Badge(
-    this.svgAsset, {
+    this.iconData, {
     Key? key,
     required this.size,
     required this.borderColor,
@@ -153,8 +106,18 @@ class _Badge extends StatelessWidget {
       ),
       padding: EdgeInsets.all(size * .15),
       child: Center(
-        child: Icon(Icons.map),
+        child: Icon(
+          iconData,
+          color: borderColor,
+        ),
       ),
     );
   }
+}
+
+class TransactionPieCharItem {
+  int value;
+  String categoryId;
+
+  TransactionPieCharItem({required this.value, required this.categoryId});
 }

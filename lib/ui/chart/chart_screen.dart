@@ -61,11 +61,15 @@ class ChartScreen extends StatelessWidget {
                       children: [
                         Flexible(
                           flex: 1,
-                          child: _PieChartDetail(),
+                          child: _PieChartDetail(
+                            transactions: transactions,
+                          ),
                         ),
                         Flexible(
                           flex: 1,
-                          child: _PieChartDetail(),
+                          child: _PieChartDetail(
+                            transactions: transactions,
+                          ),
                         ),
                       ],
                     ),
@@ -78,6 +82,10 @@ class ChartScreen extends StatelessWidget {
 }
 
 class _PieChartDetail extends StatelessWidget {
+  final List<Transaction> transactions;
+
+  _PieChartDetail({required this.transactions});
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -87,7 +95,9 @@ class _PieChartDetail extends StatelessWidget {
         Text(100000.0.formatMoney()),
         Expanded(
           child: Transform.scale(
-            child: TransactionsPieChart(),
+            child: TransactionsPieChart(
+              items: buildPiesFromTransactions(transactions),
+            ),
             scale: 0.5,
           ),
         ),
@@ -144,6 +154,32 @@ List<TransactionChartItem> buildFromTransactions(
       expensive: expensive,
     );
   }).toList();
+}
+
+List<TransactionPieCharItem> buildPiesFromTransactions(
+    List<Transaction> transactions) {
+  Map<String, double> categoriesValue =
+      transactions.fold({}, (previousValue, element) {
+    if (previousValue.containsKey(element.categoryId)) {
+      return previousValue
+        ..[element.categoryId] =
+            previousValue[element.categoryId]! + element.amount;
+    } else {
+      return previousValue..[element.categoryId] = element.amount;
+    }
+  });
+
+  double total =
+      transactions.fold(0, (previous, current) => previous + current.amount);
+  return categoriesValue
+      .map((key, value) => MapEntry(
+          key,
+          TransactionPieCharItem(
+            value: value * 100 ~/ total,
+            categoryId: key,
+          )))
+      .values
+      .toList();
 }
 
 Widget emptyTransactions() {

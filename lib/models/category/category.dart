@@ -5,6 +5,7 @@ class Category {
   String name;
   IconData? icon;
   CategoryLevel level;
+  Color? color;
   List<Category> subCategories = [];
 
   Category({
@@ -12,6 +13,7 @@ class Category {
     required this.name,
     this.level = CategoryLevel.require,
     this.icon,
+    this.color,
   });
 }
 
