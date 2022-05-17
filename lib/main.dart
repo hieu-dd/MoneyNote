@@ -9,9 +9,9 @@ import 'models/transaction/transaction.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   await configureDependencies();
   await EasyLocalization.ensureInitialized();
-  await Firebase.initializeApp();
   await hiveInit();
 
   runApp(EasyLocalization(
