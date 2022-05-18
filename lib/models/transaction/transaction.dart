@@ -16,16 +16,22 @@ class Transaction {
   @HiveField(3)
   DateTime time;
   @HiveField(4)
-  late String id;
+  String id;
 
   Transaction({
     required this.amount,
     required this.categoryId,
     required this.note,
     required this.time,
-  }) {
-    id = Uuid().v1();
-  }
+    required this.id,
+  });
+
+  Transaction.autoId({
+    required this.amount,
+    required this.categoryId,
+    required this.note,
+    required this.time,
+  }) : id = const Uuid().v1();
 
   Map<String, dynamic> toFirestore() {
     return {

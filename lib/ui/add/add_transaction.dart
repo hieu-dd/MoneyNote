@@ -54,7 +54,7 @@ class _AddTransactionState extends State<AddTransaction> {
   void _onSave(BuildContext context) {
     if (_addFormKey.currentState!.validate()) {
       final _transactionsProviders = context.read<TransactionsProvider>();
-      final _transaction = Transaction(
+      final _transaction = Transaction.autoId(
         amount: _amountController.text.parseToDouble(),
         categoryId: _category!.id,
         note: _noteController.text,

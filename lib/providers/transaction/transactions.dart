@@ -47,12 +47,14 @@ class TransactionsProvider with ChangeNotifier {
     final missingLocal = fullTransactions
         .where((element) => !localData.map((e) => e.id).contains(element.id));
     for (var element in missingLocal) {
+      print(element);
       saveToLocal(element);
     }
 
     final missingRemote = fullTransactions
         .where((element) => !remoteData.map((e) => e.id).contains(element.id));
     for (var element in missingRemote) {
+      print(element);
       saveToRemote(element);
     }
   }
