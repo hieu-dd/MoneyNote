@@ -28,7 +28,23 @@
     "food": "Food & Beverage",
     "transportation": "Transportation",
     "education": "Education",
-    "sports": "Sports"
+    "sports": "Sports",
+    "rentals": "rentals",
+    "water": "Water bill",
+    "phone": "Phone bill",
+    "electrical": "Electricity bill",
+    "gas": "Gas bill",
+    "television": "Television bill",
+    "internet": "Internet bill",
+    "fix_home": "Fix & decoration home",
+    "fix_vehicle": "Fix vehicle",
+    "healthcare": "Healthcare",
+    "houseware": "House ware",
+    "personal": "Personal items",
+    "service_home": "Home services",
+    "beautiful": "Beautiful",
+    "gift_donation": "Gift & donation",
+    "play": "Entertainment"
   },
   "notification": {
     "common": "notification"
