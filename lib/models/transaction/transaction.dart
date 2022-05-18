@@ -1,4 +1,3 @@
-import 'package:money_note/models/category/category.dart';
 import 'package:hive/hive.dart';
 import 'package:uuid/uuid.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

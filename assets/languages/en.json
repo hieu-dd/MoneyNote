@@ -23,5 +23,17 @@
     "select_category": "Select category",
     "write_note": "Write note",
     "today": "Today"
+  },
+  "categories_detail": {
+    "food": "Food & Beverage",
+    "transportation": "Transportation",
+    "education": "Education",
+    "sports": "Sports"
+  },
+  "notification": {
+    "common": "notification"
+  },
+  "account": {
+    "common": "account"
   }
 }

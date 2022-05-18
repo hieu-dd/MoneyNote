@@ -14,4 +14,8 @@ extension StringExt on String? {
     return double.tryParse(orEmpty().replaceAll(f.symbols.GROUP_SEP, "")) ??
         0.0;
   }
+
+  String capitalize() {
+    return "${this?[0].toUpperCase()}${this?.substring(1).toLowerCase()}";
+  }
 }

@@ -30,7 +30,7 @@ class _AddTransactionState extends State<AddTransaction> {
   void _onSelectCategory(Category category) {
     setState(() {
       _category = category;
-      _categoryController.text = category.name;
+      _categoryController.text = category.name.tr();
     });
   }
 
@@ -147,7 +147,7 @@ class _AddTransactionState extends State<AddTransaction> {
                     style: theme.textTheme.headline5,
                     decoration: InputDecoration(
                         hintText: 'add_transaction.select_category'.tr(),
-                        prefixIcon: const Icon(Icons.category),
+                        prefixIcon: Icon(_category?.icon ?? Icons.category),
                         disabledBorder: defaultBorder),
                   ),
                   TextFormField(

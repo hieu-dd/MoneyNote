@@ -6,7 +6,7 @@ import 'package:money_note/models/transaction/transaction.dart';
 import 'package:intl/intl.dart';
 import 'package:money_note/utils/ext/list_ext.dart';
 import 'package:money_note/utils/ext/double_ext.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 import '../../providers/category/categories.dart';
 
 class TransactionsScreen extends StatefulWidget {
@@ -97,7 +97,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                         leading: CircleAvatar(
                           child: Icon(category.icon),
                         ),
-                        title: Text(category.name),
+                        title: Text(category.name.tr()),
                         subtitle: Text(transaction.note),
                         trailing: Text(
                           transaction.amount.formatMoney(),

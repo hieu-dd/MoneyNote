@@ -10,7 +10,6 @@ class Routes {
   static const String setting = '/setting';
   static const String addTransaction = "/add_transaction";
   static const String categories = "/categories";
-
   static final routes = {
     splash: (BuildContext context) => SplashScreen(),
     setting: (BuildContext context) => SettingScreen(),

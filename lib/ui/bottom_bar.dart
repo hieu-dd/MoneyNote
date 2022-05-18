@@ -1,5 +1,7 @@
+import 'package:money_note/ui/account/account.dart';
 import 'package:money_note/ui/add/add_transaction.dart';
 import 'package:money_note/ui/chart/chart_screen.dart';
+import 'package:money_note/ui/notification/notification.dart';
 import 'package:money_note/ui/setting/setting.dart';
 import 'package:money_note/ui/transactions/transactions_screen.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +16,7 @@ class BottomBarScreen extends StatefulWidget {
 
 class _BottomBarScreenState extends State<BottomBarScreen> {
   late List<Map<String, Object>> _pages;
-  var _selectedPageIndex = 0;
+  var _selectedPageIndex = 4;
 
   void _selectPage(int index) {
     setState(() {
@@ -35,11 +37,11 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
       },
       {},
       {
-        "page": SettingScreen(),
+        "page": NotificationScreen(),
         "key": "Notifications",
       },
       {
-        "page": SettingScreen(),
+        "page": AccountScreen(),
         "key": "Setting",
       }
     ];
