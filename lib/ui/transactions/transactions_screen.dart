@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:money_note/providers/transaction/transactions.dart';
 import 'package:money_note/ui/transactions/transaction_item.dart';
+import 'package:money_note/widgets/app_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:money_note/models/transaction/transaction.dart';
 import 'package:intl/intl.dart';
@@ -8,6 +9,7 @@ import 'package:money_note/utils/ext/list_ext.dart';
 import 'package:money_note/utils/ext/double_ext.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../providers/category/categories.dart';
+import '../../widgets/empty_transactions.dart';
 
 class TransactionsScreen extends StatefulWidget {
   @override
@@ -20,102 +22,79 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
     final theme = Theme.of(context);
     final transactionsProvider = context.watch<TransactionsProvider>();
     final categoriesProvider = context.watch<CategoriesProvider>();
-    final items = convertTransactionsToItems(transactionsProvider.transactions);
+    final transactions = transactionsProvider.transactions;
+    final items = convertTransactionsToItems(transactions);
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        leading: Icon(
-          Icons.account_balance_wallet_outlined,
-          color: theme.primaryColor,
-        ),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Money",
-              style: theme.textTheme.caption,
-            ),
-            const SizedBox(
-              height: 2,
-            ),
-            Text(
-              transactionsProvider.spentAmount.formatMoney(),
-              style: theme.textTheme.subtitle2,
-            ),
-          ],
-        ),
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.edit_calendar_outlined,
-                color: Colors.black,
-              ))
-        ],
+      appBar: moneyAppbar(
+        context,
+        transactionsProvider.spentAmount,
       ),
-      body: Container(
-        color: Colors.grey.shade200,
-        child: Column(
-          children: [
-            Expanded(
-              child: ListView.builder(
-                itemBuilder: (context, index) {
-                  final item = items[index];
-                  if (item.type == Type.header) {
-                    final time = item.time;
-                    final spent = transactionsProvider.spentDay(time);
-                    return Container(
-                      color: Colors.white,
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          backgroundColor: Colors.transparent,
-                          child: FittedBox(
-                            child: Text(
-                              time.day.toString(),
-                              style: theme.textTheme.headline2!.copyWith(
-                                color: Colors.black,
+      body: transactions.isEmpty
+          ? emptyTransactions(context)
+          : Container(
+              color: Colors.grey.shade200,
+              child: Column(
+                children: [
+                  Expanded(
+                    child: ListView.builder(
+                      itemBuilder: (context, index) {
+                        final item = items[index];
+                        if (item.type == Type.header) {
+                          final time = item.time;
+                          final spent = transactionsProvider.spentDay(time);
+                          return Container(
+                            color: Colors.white,
+                            child: ListTile(
+                              leading: CircleAvatar(
+                                backgroundColor: Colors.transparent,
+                                child: FittedBox(
+                                  child: Text(
+                                    time.day.toString(),
+                                    style: theme.textTheme.headline2!.copyWith(
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              title: Text(DateFormat('EEEE').format(time)),
+                              subtitle:
+                                  Text(DateFormat('MMMM-yyyy').format(time)),
+                              trailing: Text(
+                                spent.formatMoney(),
+                                style: theme.textTheme.headlineSmall!
+                                    .copyWith(color: Colors.pink),
                               ),
                             ),
-                          ),
-                        ),
-                        title: Text(DateFormat('EEEE').format(time)),
-                        subtitle: Text(DateFormat('MMMM-yyyy').format(time)),
-                        trailing: Text(
-                          spent.formatMoney(),
-                          style: theme.textTheme.headlineSmall!
-                              .copyWith(color: Colors.pink),
-                        ),
-                      ),
-                    );
-                  } else {
-                    final transaction = item.transaction!;
-                    final category =
-                        categoriesProvider.findById(transaction.categoryId);
-                    return Container(
-                      color: Colors.white,
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          backgroundColor: category.color,
-                          child: Icon(
-                            category.icon,
+                          );
+                        } else {
+                          final transaction = item.transaction!;
+                          final category = categoriesProvider
+                              .findById(transaction.categoryId);
+                          return Container(
                             color: Colors.white,
-                          ),
-                        ),
-                        title: Text(category.name.tr()),
-                        subtitle: Text(transaction.note),
-                        trailing: Text(
-                          transaction.amount.formatMoney(),
-                        ),
-                      ),
-                    );
-                  }
-                },
-                itemCount: items.length,
+                            child: ListTile(
+                              leading: CircleAvatar(
+                                backgroundColor: category.color,
+                                child: Icon(
+                                  category.icon,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              title: Text(category.name.tr()),
+                              subtitle: Text(transaction.note),
+                              trailing: Text(
+                                transaction.amount.formatMoney(),
+                              ),
+                            ),
+                          );
+                        }
+                      },
+                      itemCount: items.length,
+                    ),
+                  )
+                ],
               ),
-            )
-          ],
-        ),
-      ),
+            ),
     );
   }
 }

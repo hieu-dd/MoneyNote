@@ -83,6 +83,7 @@ flutter:
     - assets/images/ic_google.png
     - assets/images/notification.png
     - assets/images/banner.png
+    - assets/images/box.png
     - assets/languages/
 
   # An image asset can refer to one or more resolution-specific "variants", see

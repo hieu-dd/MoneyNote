@@ -1,4 +1,7 @@
 {
+  "common": {
+    "money": "Money"
+  },
   "home": {
     "title": "Home"
   },
@@ -50,6 +53,11 @@
     "common": "notification"
   },
   "account": {
-    "common": "account"
+    "common": "account",
+    "sign_out": "Sign out"
+  },
+  "empty": {
+    "no_transactions": "You have no transactions \nClick + to add first transaction",
+    "no_notifications": "You have no alerts \nat this time"
   }
 }

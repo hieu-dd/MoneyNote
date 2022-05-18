@@ -6,6 +6,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 class AccountScreen extends StatelessWidget {
   final _auth = FirebaseAuth.instance;
 
+  void _logout() {
+    _auth.signOut();
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -49,6 +53,14 @@ class AccountScreen extends StatelessWidget {
               ],
             ),
           ),
+          const Spacer(),
+          Center(
+            child: TextButton(
+              onPressed: _logout,
+              child: Text('account.sign_out'.tr().capitalize()),
+            ),
+          ),
+          const SizedBox(height: 40)
         ],
       ),
     );

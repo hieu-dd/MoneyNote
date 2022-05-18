@@ -5,8 +5,12 @@ import 'package:provider/provider.dart';
 import 'package:money_note/utils/ext/double_ext.dart';
 import 'package:money_note/utils/ext/list_ext.dart';
 import 'package:money_note/utils/ext/time_ext.dart';
+import 'package:easy_localization/easy_localization.dart';
 import '../../models/transaction/transaction.dart';
+import 'package:money_note/utils/ext/string_ext.dart';
+import '../../widgets/app_bar.dart';
 import '../../widgets/chart/pie_chart.dart';
+import '../../widgets/empty_transactions.dart';
 
 class ChartScreen extends StatelessWidget {
   const ChartScreen({Key? key}) : super(key: key);
@@ -18,8 +22,12 @@ class ChartScreen extends StatelessWidget {
     final transactions = transactionsProvider.transactions;
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: moneyAppbar(
+        context,
+        transactionsProvider.spentAmount,
+      ),
       body: transactions.isEmpty
-          ? emptyTransactions()
+          ? emptyTransactions(context)
           : Container(
               padding: const EdgeInsets.all(10),
               height: double.infinity,
@@ -62,13 +70,17 @@ class ChartScreen extends StatelessWidget {
                         Flexible(
                           flex: 1,
                           child: _PieChartDetail(
-                            transactions: transactions,
+                            transactions: [],
+                            title: 'common.income'.tr().capitalize(),
+                            isIncome: true,
                           ),
                         ),
                         Flexible(
                           flex: 1,
                           child: _PieChartDetail(
                             transactions: transactions,
+                            title: 'common.expensive'.tr().capitalize(),
+                            isIncome: false,
                           ),
                         ),
                       ],
@@ -83,23 +95,65 @@ class ChartScreen extends StatelessWidget {
 
 class _PieChartDetail extends StatelessWidget {
   final List<Transaction> transactions;
+  final String title;
+  final bool isIncome;
 
-  _PieChartDetail({required this.transactions});
+  _PieChartDetail({
+    required this.transactions,
+    required this.title,
+    required this.isIncome,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    double spent = transactions.fold(
+        0, (previousValue, element) => previousValue + element.amount);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Expensive"),
-        Text(100000.0.formatMoney()),
-        Expanded(
-          child: Transform.scale(
-            child: TransactionsPieChart(
-              items: buildPiesFromTransactions(transactions),
-            ),
-            scale: 0.5,
-          ),
+        Text(
+          title,
+          style: textTheme.bodySmall,
+        ),
+        const SizedBox(height: 4),
+        Text(
+          spent.formatMoney(),
+          style: textTheme.titleLarge
+              ?.copyWith(color: isIncome ? Colors.blue : Colors.redAccent),
+        ),
+        const SizedBox(height: 20),
+        SizedBox(
+          width: double.infinity,
+          height: 100,
+          child: transactions.isEmpty
+              ? SizedBox(
+                  width: 100,
+                  height: 100,
+                  child: CircleAvatar(
+                    backgroundColor: Colors.grey.shade300,
+                    child: const SizedBox(
+                      height: 75,
+                      width: 75,
+                      child: CircleAvatar(
+                        backgroundColor: Colors.grey,
+                        child: SizedBox(
+                          child: CircleAvatar(
+                            backgroundColor: Colors.white,
+                          ),
+                          width: 65,
+                          height: 65,
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              : Transform.scale(
+                  child: TransactionsPieChart(
+                    items: buildPiesFromTransactions(transactions),
+                  ),
+                  scale: 0.5,
+                ),
         ),
       ],
     );
@@ -180,10 +234,4 @@ List<TransactionPieCharItem> buildPiesFromTransactions(
           )))
       .values
       .toList();
-}
-
-Widget emptyTransactions() {
-  return Center(
-    child: Icon(Icons.add_outlined),
-  );
 }

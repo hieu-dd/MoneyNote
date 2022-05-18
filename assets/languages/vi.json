@@ -1,4 +1,7 @@
 {
+  "common": {
+    "money": "Tiền"
+  },
   "home": {
     "title": "Trang chủ"
   },
@@ -23,5 +26,38 @@
     "select_category": "Chọn category",
     "write_note": "Ghi chú",
     "today": "Hôm nay"
+  },
+  "categories_detail": {
+    "food": "Ăn uống",
+    "transportation": "Đi lại",
+    "education": "Học tập",
+    "sports": "Thể dục thể thao",
+    "rentals": "Thuê nhà",
+    "water": "Hoá đơn nước",
+    "phone": "Hoá đơn điện thoại",
+    "electrical": "Tiền điện",
+    "gas": "Tiền gas",
+    "television": "Hoá đơn tivi",
+    "internet": "Tiền internet",
+    "fix_home": "Sửa và trang trí nhà",
+    "fix_vehicle": "Sửa xe cộ",
+    "healthcare": "Chăm sóc sức khoẻ",
+    "houseware": "Đồ gia dụng",
+    "personal": "Đồ dùng cá nhân",
+    "service_home": "Dịch vụ gia đình",
+    "beautiful": "Làm đẹp",
+    "gift_donation": "Quà tặng",
+    "play": "Vui chơi"
+  },
+  "notification": {
+    "common": "Thông báo"
+  },
+  "account": {
+    "common": "Tài khoản",
+    "sign_out": "Đăng xuất"
+  },
+  "empty": {
+    "no_transactions": "Bạn chưa có ghi chú nào \nBấm + to để thêm ghi chú",
+    "no_notifications": "Bạn không có thông báo nào \nvào thời điểm này"
   }
 }

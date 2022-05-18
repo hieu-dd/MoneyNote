@@ -169,12 +169,15 @@ class _TransactionsBarChartState extends State<TransactionsBarChart> {
   Widget bottomTitles(List<String> titles, double value, TitleMeta meta) {
     const style = TextStyle(
       color: Colors.black,
-      fontWeight: FontWeight.bold,
+      fontWeight: FontWeight.normal,
       fontSize: 14,
     );
-    Widget text = Text(
-      titles[value.toInt()],
-      style: style,
+    Widget text = Transform.rotate(
+      angle: -0.9,
+      child: Text(
+        titles[value.toInt()],
+        style: style,
+      ),
     );
 
     return Padding(padding: const EdgeInsets.only(top: 20), child: text);

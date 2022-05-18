@@ -50,7 +50,7 @@ Widget emptyNotification(BuildContext context) {
           height: 20,
         ),
         Text(
-          "You have no alerts \nat this time",
+          'empty.no_notifications'.tr(),
           style:
               Theme.of(context).textTheme.displaySmall?.copyWith(fontSize: 25),
           textAlign: TextAlign.center,
