@@ -5,6 +5,8 @@ import 'package:money_note/widgets/gradient_button.dart';
 import 'package:money_note/widgets/dialog.dart';
 import 'package:easy_localization/easy_localization.dart';
 
+import '../../utils/routes/routes.dart';
+
 class LoginScreen extends StatefulWidget {
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -19,6 +21,9 @@ class _LoginScreenState extends State<LoginScreen> {
     ],
   );
 
+  final TextEditingController _userController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
   void _loginWithGoogle() async {
     try {
       final googleSignInResult = await _googleSignIn.signIn();
@@ -30,13 +35,26 @@ class _LoginScreenState extends State<LoginScreen> {
         ));
       }
     } catch (error) {
-      GlobalDialog.showAlertDialog("Error", error.toString(), null, context);
+      GlobalDialog.showAlertError(error.toString(), context);
     }
   }
 
-  void _forgotPassword() {}
+  void _forgotPassword() {
+    GlobalDialog.showAlertError('common.continue_development'.tr(), context);
+  }
 
-  void _login() {}
+  void _login() async {
+    final userName = _userController.text;
+    final password = _passwordController.text;
+    if (userName.isNotEmpty && password.isNotEmpty) {
+      try {
+        await FirebaseAuth.instance
+            .signInWithEmailAndPassword(email: userName, password: password);
+      } catch (e) {
+        GlobalDialog.showAlertError(e.toString(), context);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Center(
                 child: Container(
                   child: Text(
-                    'login.title'.tr(),
+                    'auth.title'.tr(),
                     style: theme.textTheme.headline3?.copyWith(
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
@@ -61,27 +79,29 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               Text(
-                'login.user_name'.tr(),
+                'auth.user_name'.tr(),
                 style: theme.textTheme.bodySmall,
               ),
               TextField(
+                controller: _userController,
                 decoration: InputDecoration(
                     prefixIcon: Icon(Icons.login_outlined),
-                    label: Text('login.type_user_name'.tr())),
+                    label: Text('auth.type_user_name'.tr())),
               ),
               const SizedBox(
                 height: 20,
               ),
               Text(
-                'login.password'.tr(),
+                'auth.password'.tr(),
                 style: theme.textTheme.bodySmall,
               ),
               TextField(
+                controller: _passwordController,
                 decoration: InputDecoration(
                     prefixIcon: Icon(Icons.key_outlined),
                     prefixIconColor: theme.primaryColor,
                     label: Text(
-                      'login.type_password'.tr(),
+                      'auth.type_password'.tr(),
                     )),
               ),
               const SizedBox(
@@ -93,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   InkWell(
                     onTap: _forgotPassword,
                     child: Text(
-                      'login.forgot_password'.tr(),
+                      'auth.forgot_password'.tr(),
                       style: theme.textTheme.caption,
                     ),
                   ),
@@ -104,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               GradientButton(
                 onPressed: _login,
-                child: Text('login.title'.tr().toUpperCase()),
+                child: Text('auth.title'.tr().toUpperCase()),
                 width: double.infinity,
                 gradient: LinearGradient(
                   colors: [theme.backgroundColor, theme.primaryColorDark],
@@ -115,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               Center(
                   child: Text(
-                'login.sign_in_with'.tr(),
+                'auth.sign_in_with'.tr(),
                 style: theme.textTheme.bodySmall,
               )),
               const SizedBox(
@@ -141,17 +161,22 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               Center(
                   child: Text(
-                'login.sign_up_with'.tr(),
+                'auth.sign_up_with'.tr(),
                 style: theme.textTheme.bodySmall,
               )),
               const SizedBox(
                 height: 20,
               ),
               Center(
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(Routes.signup);
+                  },
                   child: Text(
-                'login.sign_up'.tr().toUpperCase(),
-                style: theme.textTheme.bodyMedium,
-              )),
+                    'auth.sign_up'.tr().toUpperCase(),
+                  ),
+                ),
+              ),
               const SizedBox(
                 height: 40,
               ),

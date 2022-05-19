@@ -3,7 +3,7 @@ import 'package:money_note/providers/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:money_note/providers/transaction/transactions.dart';
 import 'package:money_note/ui/bottom_bar.dart';
-import 'package:money_note/ui/login/login.dart';
+import 'package:money_note/ui/auth/login.dart';
 import 'package:provider/provider.dart';
 import 'package:get_it/get_it.dart';
 import '../utils/routes/routes.dart';

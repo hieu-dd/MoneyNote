@@ -1,6 +1,14 @@
 {
   "common": {
-    "money": "Money"
+    "money": "Money",
+    "save": "save",
+    "cancel": "cancel",
+    "ok": "ok",
+    "income": "income",
+    "expensive": "expensive",
+    "net_income": "Net income",
+    "income_expensive": "Income & expensive",
+    "continue_development": "Continue development"
   },
   "home": {
     "title": "Home"
@@ -9,7 +17,7 @@
     "title": "Setting",
     "dark_theme": "Dark theme"
   },
-  "login": {
+  "auth": {
     "title": "Login",
     "user_name": "User name",
     "password": "Password",
@@ -25,7 +33,8 @@
     "not_empty": "Not empty",
     "select_category": "Select category",
     "write_note": "Write note",
-    "today": "Today"
+    "today": "Today",
+    "search_category": "Type a category 's name"
   },
   "categories_detail": {
     "food": "Food & Beverage",
@@ -59,5 +68,11 @@
   "empty": {
     "no_transactions": "You have no transactions \nClick + to add first transaction",
     "no_notifications": "You have no alerts \nat this time"
+  },
+  "label": {
+    "transaction": "Transaction",
+    "report": "Report",
+    "notification": "Notification",
+    "account": "Account"
   }
 }

@@ -62,7 +62,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
           },
           decoration: InputDecoration(
             border: InputBorder.none,
-            hintText: 'Type a category\'s name',
+            hintText: 'add_transaction.search_category'.tr(),
           ),
         ),
       ),

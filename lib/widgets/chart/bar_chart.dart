@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:money_note/providers/transaction/transactions.dart';
-import '../../models/transaction/transaction.dart';
-import 'package:money_note/utils/ext/list_ext.dart';
-import 'package:money_note/utils/ext/time_ext.dart';
 import 'package:money_note/utils/ext/double_ext.dart';
-import 'package:provider/provider.dart';
 import 'dart:math';
 
 class TransactionsBarChart extends StatefulWidget {
@@ -18,9 +13,9 @@ class TransactionsBarChart extends StatefulWidget {
 }
 
 class _TransactionsBarChartState extends State<TransactionsBarChart> {
-  final Color leftBarColor = const Color(0xff53fdd7);
-  final Color rightBarColor = const Color(0xffff5182);
-  final double width = 10;
+  final Color leftBarColor = Colors.blueAccent;
+  final Color rightBarColor = Colors.orangeAccent;
+  final double width = 20;
 
   late List<BarChartGroupData> rawBarGroups;
   late List<BarChartGroupData> showingBarGroups;
@@ -43,7 +38,7 @@ class _TransactionsBarChartState extends State<TransactionsBarChart> {
       aspectRatio: 1,
       child: Card(
         elevation: 0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
@@ -124,7 +119,7 @@ class _TransactionsBarChartState extends State<TransactionsBarChart> {
                       leftTitles: AxisTitles(
                         sideTitles: SideTitles(
                           showTitles: true,
-                          reservedSize: 50,
+                          reservedSize: 40,
                           interval: 1,
                           getTitlesWidget: leftTitles,
                         ),
@@ -134,7 +129,7 @@ class _TransactionsBarChartState extends State<TransactionsBarChart> {
                         show: true,
                         border: Border.all(
                           color: Colors.grey,
-                          width: 0.5,
+                          width: 1,
                           style: BorderStyle.solid,
                         )),
                     barGroups: showingBarGroups,
@@ -184,15 +179,17 @@ class _TransactionsBarChartState extends State<TransactionsBarChart> {
   }
 
   BarChartGroupData makeGroupData(int x, double y1, double y2) {
-    return BarChartGroupData(barsSpace: 4, x: x, barRods: [
+    return BarChartGroupData(barsSpace: 0, x: x, barRods: [
       BarChartRodData(
         toY: y1,
         color: leftBarColor,
+        borderRadius: BorderRadius.zero,
         width: width,
       ),
       BarChartRodData(
         toY: y2,
         color: rightBarColor,
+        borderRadius: BorderRadius.zero,
         width: width,
       ),
     ]);

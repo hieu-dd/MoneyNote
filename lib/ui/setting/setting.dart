@@ -37,7 +37,7 @@ class SettingScreen extends StatelessWidget {
             ),
             InkWell(
               onTap: _logout,
-              child: Text("Logout"),
+              child: Text('account.sign_out'.tr()),
             )
           ],
         ),

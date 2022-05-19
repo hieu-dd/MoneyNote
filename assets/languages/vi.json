@@ -1,6 +1,14 @@
 {
   "common": {
-    "money": "Tiền"
+    "money": "Tiền mặt",
+    "save": "Lưu",
+    "cancel": "Huỷ",
+    "ok": "Đồng ý",
+    "income": "Thu nhập",
+    "expensive": "Chi tiêu",
+    "net_income": "Tổng tiền vào",
+    "income_expensive": "Thu nhập & chi tiêu",
+    "continue_development": "Tính năng đang được phát triển"
   },
   "home": {
     "title": "Trang chủ"
@@ -9,7 +17,7 @@
     "title": "Cài đặt",
     "dark_theme": "Giao diện tối"
   },
-  "login": {
+  "auth": {
     "title": "Đăng nhập",
     "user_name": "Tên đăng nhập",
     "password": "Mật khẩu",
@@ -23,9 +31,10 @@
   "add_transaction": {
     "title": "Thêm giao dịch",
     "not_empty": "Không được bỏ trống",
-    "select_category": "Chọn category",
+    "select_category": "Chọn loại giao dịch",
     "write_note": "Ghi chú",
-    "today": "Hôm nay"
+    "today": "Hôm nay",
+    "search_category": "Nhập tên giao dịch cần tìm"
   },
   "categories_detail": {
     "food": "Ăn uống",
@@ -59,5 +68,11 @@
   "empty": {
     "no_transactions": "Bạn chưa có ghi chú nào \nBấm + to để thêm ghi chú",
     "no_notifications": "Bạn không có thông báo nào \nvào thời điểm này"
+  },
+  "label": {
+    "transaction": "Ghi chú",
+    "report": "Báo cáo",
+    "notification": "Thông báo",
+    "account": "Tài khoản"
   }
 }

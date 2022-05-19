@@ -55,7 +55,7 @@ class _AddTransactionState extends State<AddTransaction> {
     if (_addFormKey.currentState!.validate()) {
       final _transactionsProviders = context.read<TransactionsProvider>();
       final _transaction = Transaction.autoId(
-        amount: _amountController.text.parseToDouble(),
+        amount: -_amountController.text.parseToDouble(),
         categoryId: _category!.id,
         note: _noteController.text,
         time: _selectedTime,
@@ -73,6 +73,9 @@ class _AddTransactionState extends State<AddTransaction> {
     );
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
+        iconTheme: const IconThemeData(color: Colors.black),
+        titleTextStyle: theme.textTheme.titleLarge,
         title: Text('add_transaction.title'.tr()),
         actions: [
           InkWell(
@@ -83,8 +86,8 @@ class _AddTransactionState extends State<AddTransaction> {
               padding: const EdgeInsets.only(right: 10),
               child: Center(
                   child: Text(
-                "Save",
-                style: theme.textTheme.headline6?.copyWith(color: Colors.white),
+                'common.save'.tr().capitalize(),
+                style: theme.textTheme.titleLarge,
               )),
             ),
           ),

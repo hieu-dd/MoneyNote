@@ -35,7 +35,7 @@ class ChartScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Income & Expensive",
+                    'common.income_expensive'.tr().capitalize(),
                     style: theme.textTheme.headlineSmall!.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
@@ -44,7 +44,7 @@ class ChartScreen extends StatelessWidget {
                     height: 10,
                   ),
                   Text(
-                    "Net Income",
+                    'common.net_income'.tr().capitalize(),
                     style: theme.textTheme.bodySmall,
                   ),
                   Text(
@@ -186,26 +186,26 @@ List<TransactionChartItem> buildFromTransactions(
         expensive = transactions
             .where((element) => element.time.isSameDay(time))
             .fold(0, (previous, current) => previous + current.amount);
-        income = expensive;
+        income = 10;
         break;
       case ChartType.month:
         title = "${time.month}/${time.year}";
         expensive = transactions
             .where((element) => element.time.isSameMonth(time))
             .fold(0, (previous, current) => previous + current.amount);
-        income = expensive;
+        income = 10;
         break;
       default:
         title = "${time.day}/${time.month}";
         expensive = transactions
             .where((element) => element.time.year == time.year)
             .fold(0, (previous, current) => previous + current.amount);
-        income = expensive;
+        income = 10;
     }
     return TransactionChartItem(
       title: title,
-      income: income,
-      expensive: expensive,
+      income: expensive.abs() / 250, // TODO
+      expensive: expensive.abs(),
     );
   }).toList();
 }

@@ -6,6 +6,8 @@ import 'package:money_note/ui/setting/setting.dart';
 import 'package:money_note/ui/transactions/transactions_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:money_note/utils/routes/routes.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:money_note/utils/ext/string_ext.dart';
 
 class BottomBarScreen extends StatefulWidget {
   const BottomBarScreen({Key? key}) : super(key: key);
@@ -63,28 +65,28 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
           unselectedItemColor: Colors.grey,
           onTap: _selectPage,
           currentIndex: _selectedPageIndex,
-          items: const [
+          items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.account_balance_wallet_outlined),
-              label: 'Transaction',
+              icon: const Icon(Icons.account_balance_wallet_outlined),
+              label: 'label.transaction'.tr().capitalize(),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.bar_chart_outlined),
-              label: 'Report',
+              icon: const Icon(Icons.bar_chart_outlined),
+              label: 'label.report'.tr().capitalize(),
             ),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
               activeIcon: null,
               icon: Icon(null),
               tooltip: "",
               label: "",
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.notifications_active_outlined),
-              label: 'Notification',
+              icon: const Icon(Icons.notifications_active_outlined),
+              label: 'label.notification'.tr().capitalize(),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.settings_outlined),
-              label: 'Setting',
+              icon: const Icon(Icons.account_circle_outlined),
+              label: 'label.account'.tr().capitalize(),
             ),
           ],
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class GlobalDialog {
   static void showAlertDialog(
@@ -14,7 +15,7 @@ class GlobalDialog {
                 onPressed: () {
                   Navigator.of(ctx).pop();
                 },
-                child: Text("Cancel".toUpperCase()),
+                child: Text('common.cancel'.tr().toUpperCase()),
               ),
               if (fct != null)
                 TextButton(
@@ -22,7 +23,7 @@ class GlobalDialog {
                     Navigator.of(ctx).pop();
                     fct();
                   },
-                  child: Text("OK"),
+                  child: Text('common.ok'.tr().toUpperCase()),
                 ),
             ],
           );
@@ -40,7 +41,7 @@ class GlobalDialog {
                 onPressed: () {
                   Navigator.of(ctx).pop();
                 },
-                child: Text("Cancel".toUpperCase()),
+                child: Text('common.cancel'.tr().toUpperCase()),
               ),
             ],
           );
