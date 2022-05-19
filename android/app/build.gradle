@@ -45,8 +45,8 @@ android {
         applicationId "com.d2b.dev.money_note"
         minSdkVersion 21
         targetSdkVersion flutter.targetSdkVersion
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+        versionCode 1_000_000
+        versionName "1.0.0"
     }
 
     buildTypes {

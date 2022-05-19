@@ -5,6 +5,7 @@ import 'package:money_note/widgets/gradient_button.dart';
 import 'package:money_note/widgets/dialog.dart';
 import 'package:easy_localization/easy_localization.dart';
 
+import '../../consts/assets.dart';
 import '../../utils/routes/routes.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -143,16 +144,21 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               InkWell(
                 onTap: _loginWithGoogle,
-                child: const Center(
+                child: Center(
                   child: SizedBox(
-                      width: 40,
-                      height: 40,
-                      child: CircleAvatar(
-                        child: Icon(
-                          Icons.facebook,
-                          size: 35,
-                        ),
-                      )),
+                    width: 40,
+                    height: 40,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(50.0),
+                      child: Image.asset(
+                        Assets.iconGoogle,
+                        height: 40.0,
+                        width: 40.0,
+                        color: theme.primaryColorDark,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  ),
                 ),
               ),
               const Flexible(
