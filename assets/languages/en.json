@@ -19,9 +19,9 @@
   },
   "auth": {
     "title": "Login",
-    "user_name": "User name",
+    "user_name": "Email",
     "password": "Password",
-    "type_user_name": "Type your user name",
+    "type_user_name": "Type your email",
     "type_password": "Type your password",
     "forgot_password": "Forgot password",
     "sign_in_with": "or Sign in with using",

@@ -19,9 +19,9 @@
   },
   "auth": {
     "title": "Đăng nhập",
-    "user_name": "Tên đăng nhập",
+    "user_name": "Email",
     "password": "Mật khẩu",
-    "type_user_name": "Nhập tên đăng nhập của bạn",
+    "type_user_name": "Nhập email của bạn",
     "type_password": "Nhập mật khẩu của bạn",
     "forgot_password": "Quên mật khẩu",
     "sign_in_with": "hoặc đăng nhập với",
@@ -66,7 +66,7 @@
     "sign_out": "Đăng xuất"
   },
   "empty": {
-    "no_transactions": "Bạn chưa có ghi chú nào \nBấm + to để thêm ghi chú",
+    "no_transactions": "Bạn chưa có ghi chú nào \nBấm + để thêm ghi chú",
     "no_notifications": "Bạn không có thông báo nào \nvào thời điểm này"
   },
   "label": {
