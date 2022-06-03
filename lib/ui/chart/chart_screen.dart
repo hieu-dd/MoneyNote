@@ -12,19 +12,40 @@ import '../../widgets/app_bar.dart';
 import '../../widgets/chart/pie_chart.dart';
 import '../../widgets/empty_transactions.dart';
 
-class ChartScreen extends StatelessWidget {
+class ChartScreen extends StatefulWidget {
   const ChartScreen({Key? key}) : super(key: key);
+
+  @override
+  State<ChartScreen> createState() => _ChartScreenState();
+}
+
+class _ChartScreenState extends State<ChartScreen> {
+  Map<String, DateTime> timeRange = {
+    "start": DateTime.now().getFirstDayInMonth(),
+    "end": DateTime.now().getLastDayInMonth(),
+  };
+
+  void _onChangeTime(DateTime date) {
+    setState(() {
+      timeRange = {
+        "start": date.getFirstDayInMonth(),
+        "end": date.getLastDayInMonth(),
+      };
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final transactionsProvider = context.watch<TransactionsProvider>();
-    final transactions = transactionsProvider.transactions;
+    final transactions = transactionsProvider.getTransactionsByTime(timeRange);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: moneyAppbar(
-        context,
-        transactionsProvider.spentAmount,
+        context: context,
+        balance: transactionsProvider.getSpentAmountByTime(timeRange),
+        timeRange: timeRange,
+        onChangeTime: _onChangeTime,
       ),
       body: transactions.isEmpty
           ? emptyTransactions(context)
@@ -48,7 +69,9 @@ class ChartScreen extends StatelessWidget {
                     style: theme.textTheme.bodySmall,
                   ),
                   Text(
-                    transactionsProvider.spentAmount.formatMoney(),
+                    transactionsProvider
+                        .getSpentAmountByTime(timeRange)
+                        .formatMoney(),
                     style: theme.textTheme.headlineSmall,
                   ),
                   Flexible(

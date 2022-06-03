@@ -12,12 +12,33 @@ class TransactionsProvider with ChangeNotifier {
 
   final List<Transaction> _transactions = [];
 
-  List<Transaction> get transactions {
+  List<Transaction> get _allTransactions {
     if (_transactions.isEmpty) {
       syncTransactions();
     }
     return _transactions;
   }
+
+  List<Transaction> getTransactionsByTime(Map<String, DateTime>? timeRange) {
+    return _allTransactions
+        .where((e) =>
+            timeRange == null ||
+            (e.time.isAfter(timeRange["start"]!) &&
+                e.time.isBefore(timeRange["end"]!)))
+        .toList();
+  }
+
+  double getSpentAmountByTime(Map<String, DateTime>? timeRange) =>
+      getTransactionsByTime(timeRange)
+          .fold(0, (previous, current) => previous + current.amount);
+
+  double spentDay(DateTime time) => _transactions.fold(0, (previous, current) {
+        if (current.time.isSameDay(time)) {
+          return previous + current.amount;
+        } else {
+          return previous;
+        }
+      });
 
   syncTransactions() async {
     final List<Transaction> localData = [];
@@ -58,17 +79,6 @@ class TransactionsProvider with ChangeNotifier {
       saveToRemote(element);
     }
   }
-
-  double get spentAmount =>
-      _transactions.fold(0, (previous, current) => previous + current.amount);
-
-  double spentDay(DateTime time) => _transactions.fold(0, (previous, current) {
-        if (current.time.isSameDay(time)) {
-          return previous + current.amount;
-        } else {
-          return previous;
-        }
-      });
 
   void addTransaction(Transaction transaction) {
     _transactions.add(transaction);

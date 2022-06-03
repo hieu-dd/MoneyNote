@@ -10,6 +10,7 @@ import 'package:money_note/utils/ext/double_ext.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../providers/category/categories.dart';
 import '../../widgets/empty_transactions.dart';
+import 'package:money_note/utils/ext/time_ext.dart';
 
 class TransactionsScreen extends StatefulWidget {
   @override
@@ -17,19 +18,36 @@ class TransactionsScreen extends StatefulWidget {
 }
 
 class _TransactionsScreenState extends State<TransactionsScreen> {
+  Map<String, DateTime> timeRange = {
+    "start": DateTime.now().getFirstDayInMonth(),
+    "end": DateTime.now().getLastDayInMonth(),
+  };
+
+  void _onChangeTime(DateTime date) {
+    setState(() {
+      timeRange = {
+        "start": date.getFirstDayInMonth(),
+        "end": date.getLastDayInMonth(),
+      };
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final transactionsProvider = context.watch<TransactionsProvider>();
     final categoriesProvider = context.watch<CategoriesProvider>();
-    final transactions = transactionsProvider.transactions;
-    final items = convertTransactionsToItems(transactions);
+    final transactions = transactionsProvider.getTransactionsByTime(timeRange);
+    final items = convertTransactionsToItems(transactions, timeRange);
+
     return Scaffold(
       appBar: moneyAppbar(
-        context,
-        transactionsProvider.spentAmount,
+        context: context,
+        balance: transactionsProvider.getSpentAmountByTime(timeRange),
+        timeRange: timeRange,
+        onChangeTime: _onChangeTime,
       ),
-      body: transactions.isEmpty
+      body: items.isEmpty
           ? emptyTransactions(context)
           : Container(
               color: Colors.grey.shade200,
@@ -101,6 +119,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
 
 List<TransactionItem> convertTransactionsToItems(
   List<Transaction> transactions,
+  Map<String, DateTime> range,
 ) {
   final days = transactions
       .map((e) => TransactionItem(
