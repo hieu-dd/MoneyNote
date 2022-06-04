@@ -2,28 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:money_note/utils/ext/double_ext.dart';
 import 'package:easy_localization/easy_localization.dart';
+import '../utils/ext/time_ext.dart';
 
 PreferredSizeWidget moneyAppbar({
   required BuildContext context,
   required double balance,
-  Map<String, DateTime>? timeRange,
-  Function? onChangeTime,
+  Function? changeRange,
+  PreferredSizeWidget? bottom,
 }) {
   final theme = Theme.of(context);
-
-  void _onClickTimeChange() {
-    final now = DateTime.now();
-    DatePicker.showDatePicker(
-      context,
-      showTitleActions: true,
-      minTime: now.subtract(const Duration(days: 365)),
-      onConfirm: (date) {
-        onChangeTime?.call(date);
-      },
-      currentTime: now,
-      locale: LocaleType.vi,
-    );
-  }
 
   return AppBar(
     backgroundColor: Colors.white,
@@ -48,24 +35,37 @@ PreferredSizeWidget moneyAppbar({
       ],
     ),
     actions: [
-      if (timeRange != null) timeDetail(timeRange),
-      IconButton(
-        onPressed: _onClickTimeChange,
-        icon: const Icon(
-          Icons.edit_calendar_outlined,
-          color: Colors.black,
+      Center(
+        child: DropdownButton<DateTimeType>(
+          icon: const Icon(Icons.calendar_month),
+          elevation: 16,
+          style: const TextStyle(color: Colors.black),
+          underline: Container(height: 0),
+          onChanged: (DateTimeType? newValue) {
+            changeRange?.call(newValue);
+          },
+          items: <DateTimeType>[
+            DateTimeType.day,
+            DateTimeType.week,
+            DateTimeType.month,
+            DateTimeType.year,
+          ].map<DropdownMenuItem<DateTimeType>>((DateTimeType value) {
+            return DropdownMenuItem<DateTimeType>(
+              value: value,
+              child: Text(
+                value == DateTimeType.day
+                    ? 'common.day'.tr()
+                    : value == DateTimeType.week
+                        ? 'common.week'.tr()
+                        : value == DateTimeType.month
+                            ? 'common.month'.tr()
+                            : 'common.year'.tr(),
+              ),
+            );
+          }).toList(),
         ),
-      ),
+      )
     ],
-  );
-}
-
-Widget timeDetail(Map<String, DateTime> time) {
-  final timeStart = time["start"]!;
-  return Center(
-    child: Text(
-      DateFormat('MM/yy').format(timeStart),
-      style: TextStyle(color: Colors.black),
-    ),
+    bottom: bottom,
   );
 }

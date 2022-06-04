@@ -8,7 +8,11 @@
     "expensive": "Chi tiêu",
     "net_income": "Tổng tiền vào",
     "income_expensive": "Thu nhập & chi tiêu",
-    "continue_development": "Tính năng đang được phát triển"
+    "continue_development": "Tính năng đang được phát triển",
+    "day": "ngày",
+    "week": "tuần",
+    "month": "tháng",
+    "year": "năm"
   },
   "home": {
     "title": "Trang chủ"

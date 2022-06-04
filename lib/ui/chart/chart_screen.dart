@@ -43,9 +43,7 @@ class _ChartScreenState extends State<ChartScreen> {
       backgroundColor: Colors.white,
       appBar: moneyAppbar(
         context: context,
-        balance: transactionsProvider.getSpentAmountByTime(timeRange),
-        timeRange: timeRange,
-        onChangeTime: _onChangeTime,
+        balance: transactionsProvider.getSpentAmountByTime(),
       ),
       body: transactions.isEmpty
           ? emptyTransactions(context)
@@ -69,9 +67,7 @@ class _ChartScreenState extends State<ChartScreen> {
                     style: theme.textTheme.bodySmall,
                   ),
                   Text(
-                    transactionsProvider
-                        .getSpentAmountByTime(timeRange)
-                        .formatMoney(),
+                    transactionsProvider.getSpentAmountByTime().formatMoney(),
                     style: theme.textTheme.headlineSmall,
                   ),
                   Flexible(

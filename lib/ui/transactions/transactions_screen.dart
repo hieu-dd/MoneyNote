@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:money_note/providers/transaction/transactions.dart';
+import 'package:money_note/ui/transactions/transaction_content.dart';
 import 'package:money_note/ui/transactions/transaction_item.dart';
 import 'package:money_note/widgets/app_bar.dart';
 import 'package:provider/provider.dart';
@@ -18,136 +19,88 @@ class TransactionsScreen extends StatefulWidget {
 }
 
 class _TransactionsScreenState extends State<TransactionsScreen> {
-  Map<String, DateTime> timeRange = {
-    "start": DateTime.now().getFirstDayInMonth(),
-    "end": DateTime.now().getLastDayInMonth(),
-  };
+  var _dateTimeType = DateTimeType.month;
 
-  void _onChangeTime(DateTime date) {
+  void _onChangeDateTimeType(DateTimeType type) {
     setState(() {
-      timeRange = {
-        "start": date.getFirstDayInMonth(),
-        "end": date.getLastDayInMonth(),
-      };
+      _dateTimeType = type;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final transactionsProvider = context.watch<TransactionsProvider>();
-    final categoriesProvider = context.watch<CategoriesProvider>();
-    final transactions = transactionsProvider.getTransactionsByTime(timeRange);
-    final items = convertTransactionsToItems(transactions, timeRange);
-
-    return Scaffold(
-      appBar: moneyAppbar(
-        context: context,
-        balance: transactionsProvider.getSpentAmountByTime(timeRange),
-        timeRange: timeRange,
-        onChangeTime: _onChangeTime,
+    final length = List.of([11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]);
+    return DefaultTabController(
+      initialIndex: 5,
+      length: length.length,
+      child: Scaffold(
+        appBar: moneyAppbar(
+          context: context,
+          balance: transactionsProvider.getSpentAmountByTime(),
+          changeRange: _onChangeDateTimeType,
+          bottom: TabBar(
+              isScrollable: true,
+              tabs: length
+                  .map((e) => Tab(child: tabItem(e, _dateTimeType)))
+                  .toList()),
+        ),
+        body: TabBarView(
+          children: length.map((e) => tabContent(e, _dateTimeType)).toList(),
+        ),
       ),
-      body: items.isEmpty
-          ? emptyTransactions(context)
-          : Container(
-              color: Colors.grey.shade200,
-              child: Column(
-                children: [
-                  Expanded(
-                    child: ListView.builder(
-                      itemBuilder: (context, index) {
-                        final item = items[index];
-                        if (item.type == Type.header) {
-                          final time = item.time;
-                          final spent = transactionsProvider.spentDay(time);
-                          return Container(
-                            color: Colors.white,
-                            child: ListTile(
-                              leading: CircleAvatar(
-                                backgroundColor: Colors.transparent,
-                                child: FittedBox(
-                                  child: Text(
-                                    time.day.toString(),
-                                    style: theme.textTheme.headline2!.copyWith(
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              title: Text(DateFormat('EEEE').format(time)),
-                              subtitle:
-                                  Text(DateFormat('MMMM-yyyy').format(time)),
-                              trailing: Text(
-                                spent.formatMoney(),
-                                style: theme.textTheme.headlineSmall!
-                                    .copyWith(color: Colors.pink),
-                              ),
-                            ),
-                          );
-                        } else {
-                          final transaction = item.transaction!;
-                          final category = categoriesProvider
-                              .findById(transaction.categoryId);
-                          return Container(
-                            color: Colors.white,
-                            child: ListTile(
-                              leading: CircleAvatar(
-                                backgroundColor: category.color,
-                                child: Icon(
-                                  category.icon,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              title: Text(category.name.tr()),
-                              subtitle: Text(transaction.note),
-                              trailing: Text(
-                                transaction.amount.formatMoney(),
-                              ),
-                            ),
-                          );
-                        }
-                      },
-                      itemCount: items.length,
-                    ),
-                  )
-                ],
-              ),
-            ),
     );
   }
 }
 
-List<TransactionItem> convertTransactionsToItems(
-  List<Transaction> transactions,
-  Map<String, DateTime> range,
-) {
-  final days = transactions
-      .map((e) => TransactionItem(
-            time: DateTime(
-              e.time.year,
-              e.time.month,
-              e.time.day,
-              23,
-              59,
-            ),
-            type: Type.header,
-          ))
-      .toList()
-      .unique((x) => x.id);
-  final items = transactions.map((e) => TransactionItem(
-        time: e.time,
-        transaction: e,
-        type: Type.transaction,
-      ));
-  return [...items, ...days]..sort((a, b) {
-      if (a.time.isAfter(b.time)) {
-        return -1;
-      } else if (a.time.isBefore(b.time)) {
-        return 1;
-      } else if (a.type == Type.header) {
-        return -1;
+Widget tabItem(int unit, DateTimeType type) {
+  final timeRange = DateTime.now().calTimeRange(unit, type);
+  String label;
+  switch (type) {
+    case DateTimeType.day:
+      if (unit == 0) {
+        label = "Today";
+      } else if (unit == 1) {
+        label = "Yesterday";
       } else {
-        return 1;
+        label = DateFormat('dd MMMM yyyy').format(timeRange["start"]!);
       }
-    });
+      break;
+    case DateTimeType.week:
+      if (unit == 0) {
+        label = "This week";
+      } else if (unit == 1) {
+        label = "Last week";
+      } else {
+        label = "${DateFormat('dd/MM').format(timeRange["start"]!)} - "
+            "${DateFormat('dd/MM').format(timeRange["end"]!)}";
+      }
+      break;
+    case DateTimeType.month:
+      if (unit == 0) {
+        label = "This month";
+      } else if (unit == 1) {
+        label = "Last month";
+      } else {
+        label = DateFormat('MMMM yyyy').format(timeRange["start"]!);
+      }
+      break;
+    default:
+      if (unit == 0) {
+        label = "This year";
+      } else if (unit == 1) {
+        label = "Last year";
+      } else {
+        label = DateFormat('yyyy').format(timeRange["start"]!);
+      }
+  }
+  return Text(
+    label,
+    style: TextStyle(color: Colors.black),
+  );
+}
+
+Widget tabContent(int unit, DateTimeType type) {
+  final timeRange = DateTime.now().calTimeRange(unit, type);
+  return TransactionContent(timeRange: timeRange);
 }

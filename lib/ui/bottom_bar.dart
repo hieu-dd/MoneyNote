@@ -18,7 +18,7 @@ class BottomBarScreen extends StatefulWidget {
 
 class _BottomBarScreenState extends State<BottomBarScreen> {
   late List<Map<String, Object>> _pages;
-  var _selectedPageIndex = 1;
+  var _selectedPageIndex = 0;
 
   void _selectPage(int index) {
     setState(() {

@@ -8,7 +8,11 @@
     "expensive": "expensive",
     "net_income": "Net income",
     "income_expensive": "Income & expensive",
-    "continue_development": "Continue development"
+    "continue_development": "Continue development",
+    "day": "day",
+    "week": "week",
+    "month": "month",
+    "year": "year"
   },
   "home": {
     "title": "Home"

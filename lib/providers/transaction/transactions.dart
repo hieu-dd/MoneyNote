@@ -28,7 +28,7 @@ class TransactionsProvider with ChangeNotifier {
         .toList();
   }
 
-  double getSpentAmountByTime(Map<String, DateTime>? timeRange) =>
+  double getSpentAmountByTime({Map<String, DateTime>? timeRange}) =>
       getTransactionsByTime(timeRange)
           .fold(0, (previous, current) => previous + current.amount);
 
