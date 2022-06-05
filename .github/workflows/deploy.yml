@@ -48,5 +48,6 @@ jobs:
         with:
           serviceAccountJson: ${{secrets.SERVICE_ACCOUNT}}
           packageName: com.d2b.dev.money_note
-          releaseFile: build/app/outputs/bundle/release/app-release.aab
+          releaseFiles: build/app/outputs/bundle/release/app-release.aab
           track: production
+          mappingFile: build/app/outputs/mapping/release/mapping.txt
