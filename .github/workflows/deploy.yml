@@ -45,13 +45,13 @@ jobs:
 
       - name: Copy release file
         run: |
-          mkdir build/out
-          cp build/app/outputs/bundle/release/app-release.aab build/out
+          mkdir /home/out
+          cp build/app/outputs/bundle/release/app-release.aab /home/out
 
       - name: Deploy to Alpha
         uses: r0adkll/upload-google-play@v1
         with:
           serviceAccountJson: ${{secrets.SERVICE_ACCOUNT}}
           packageName: com.d2b.dev.money_note
-          releaseFile: build/out/app-release.aab
+          releaseFile: /home/out/app-release.aab
           track: production
