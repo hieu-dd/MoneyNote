@@ -1,13 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:money_note/ui/account/account.dart';
-import 'package:money_note/ui/add/add_transaction.dart';
 import 'package:money_note/ui/chart/chart_screen.dart';
 import 'package:money_note/ui/notification/notification.dart';
-import 'package:money_note/ui/setting/setting.dart';
 import 'package:money_note/ui/transactions/transactions_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:money_note/utils/routes/routes.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:money_note/utils/ext/string_ext.dart';
+import 'package:money_note/utils/routes/routes.dart';
 
 class BottomBarScreen extends StatefulWidget {
   const BottomBarScreen({Key? key}) : super(key: key);

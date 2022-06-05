@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:money_note/consts/app_theme.dart';
 import 'package:money_note/data/sharedpref/shared_preferences_helper.dart';
-import 'package:flutter/material.dart';
 
 class ThemeProvider with ChangeNotifier {
   final SharedPreferenceHelper _sharedPreferenceHelper;

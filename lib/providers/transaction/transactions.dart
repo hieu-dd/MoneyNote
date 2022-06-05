@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:money_note/models/transaction/transaction.dart';
-import 'package:money_note/utils/ext/time_ext.dart';
-import 'package:hive/hive.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as CloudFireStore;
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:money_note/models/transaction/transaction.dart';
 import 'package:money_note/utils/ext/list_ext.dart';
+import 'package:money_note/utils/ext/time_ext.dart';
 
 class TransactionsProvider with ChangeNotifier {
   final _fireStore = CloudFireStore.FirebaseFirestore.instance;

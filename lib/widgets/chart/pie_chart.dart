@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/material.dart';
 import 'package:money_note/providers/category/categories.dart';
-import '../../utils/ext/list_ext.dart';
-import '../../models/transaction/transaction.dart';
 import 'package:provider/provider.dart';
+
+import '../../utils/ext/list_ext.dart';
 
 class TransactionsPieChart extends StatefulWidget {
   final List<TransactionPieCharItem> items;

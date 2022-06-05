@@ -4,5 +4,4 @@ class Assets {
   static const String logoNotification = "assets/images/notification.png";
   static const String banner = "assets/images/banner.png";
   static const String emptyBox = "assets/images/box.png";
-
 }

@@ -1,9 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:money_note/widgets/gradient_button.dart';
-import 'package:money_note/widgets/dialog.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:money_note/widgets/dialog.dart';
+import 'package:money_note/widgets/gradient_button.dart';
 
 class SignupScreen extends StatefulWidget {
   @override
@@ -21,8 +20,7 @@ class _SignupScreenState extends State<SignupScreen> {
     final password = _passwordController.text;
     if (userName.isNotEmpty && password.isNotEmpty) {
       try {
-        final credential =
-            await _auth.createUserWithEmailAndPassword(
+        final credential = await _auth.createUserWithEmailAndPassword(
           email: userName,
           password: password,
         );

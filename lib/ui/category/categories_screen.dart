@@ -1,8 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:money_note/models/category/category.dart';
 import 'package:money_note/providers/category/categories.dart';
 import 'package:provider/provider.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class CategoriesScreen extends StatefulWidget {
   Function(Category) selectCategory;

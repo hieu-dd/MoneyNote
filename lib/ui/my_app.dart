@@ -1,15 +1,16 @@
-import 'package:money_note/providers/category/categories.dart';
-import 'package:money_note/providers/theme/theme.dart';
-import 'package:flutter/material.dart';
-import 'package:money_note/providers/transaction/transactions.dart';
-import 'package:money_note/ui/bottom_bar.dart';
-import 'package:money_note/ui/auth/login.dart';
-import 'package:provider/provider.dart';
-import 'package:get_it/get_it.dart';
-import '../utils/routes/routes.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
+import 'package:money_note/providers/category/categories.dart';
+import 'package:money_note/providers/theme/theme.dart';
+import 'package:money_note/providers/transaction/transactions.dart';
+import 'package:money_note/ui/auth/login.dart';
+import 'package:money_note/ui/bottom_bar.dart';
+import 'package:provider/provider.dart';
+
+import '../utils/routes/routes.dart';
 
 final _getIt = GetIt.instance;
 
