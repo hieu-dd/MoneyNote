@@ -26,6 +26,10 @@ jobs:
         with:
           flutter-version: '2.10.x'
           channel: 'stable'
+          cache: true
+          cache-key: flutter # optional, change this to force refresh cache
+          cache-path: ${{ runner.tool_cache }}/flutter # optional, change this to specify the cache path
+          architecture: x64
 
       - name: Install dependencies
         run: flutter pub get

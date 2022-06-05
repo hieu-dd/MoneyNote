@@ -10,6 +10,6 @@ void main() {
   test('Test orEmpty', () {
     String? test;
     final expectString = test.orEmpty();
-    expect(expectString, "Abc");
+    expect(expectString, "");
   });
 }
