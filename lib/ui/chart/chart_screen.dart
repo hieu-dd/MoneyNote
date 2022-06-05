@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:money_note/providers/transaction/transactions.dart';
 import 'package:money_note/ui/chart/chart_content.dart';
-import 'package:money_note/utils/ext/time_ext.dart';
 import 'package:provider/provider.dart';
-
+import 'package:money_note/utils/ext/time_ext.dart';
 import '../../widgets/app_bar.dart';
 
 class ChartScreen extends StatefulWidget {
