@@ -44,7 +44,7 @@ jobs:
         run: flutter build appbundle
 
       - name: Deploy to Alpha
-        uses: r0adkll/upload-google-play@v1
+        uses: r0adkll/upload-google-play@v1.0.15
         with:
           serviceAccountJsonPlainText: ${{secrets.SERVICE_ACCOUNT}}
           packageName: com.d2b.dev.money_note
