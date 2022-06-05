@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "pc-api-6141591579667898980-492",
+  "private_key_id": "a9ff827e2a55a1218828950402d34e2b537db378",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCZtpi6QKaN2l7U\nJ9qOg5Hi3PojCkJ5oasmAqRnyeNkNV1IUnf/e4XeR/1DUbmyPsxT6xhBaE+3sH2A\nd2HzG37LS5buQhLk8VOwm+rdugOC6FAbCXucsTfNIv5awDfdJGb8VSCzFLR4bvhh\n1PsnzNpnt8/rvnjC5NKmamtcWHMWSvlq4C+lyl2aZ6iNCRIh1SyaCE/e1DZL7V6K\nkqG6awOzoLHYXRymV2boz9aUKIOGjdDrBQ7vloMJjQaLUwSewDiSdCfL9SU9LWPD\nse1hyJjIjUkjFqpFyVmswamLvRHssnFxCArTq7Zk+MFHSp6ITltgkCQZmPU9DfJ6\nKjXOrTYVAgMBAAECggEAAfLcKHmlrY+ypbrkR5aTFLlbccfxWXcQuI3OWsMm9FVu\n23oG1mt7oiVEfdl9OALEIV44yP99tI+dZQcJFrARtpm8je8IK/SD7JhqwlPXiTh7\nvNQCcqqWfAMbuWJ4HYAWzs/KIdW7MfmqLByrRcZlkGy2oJT3ap/EVzgV01kLCyHJ\nfxOBdI6CMPIwMH9X3GGYuDPtKk0GlgNGksZ3T/HG9eCOJOgYqUa/IG7QWoVFzpOa\nxe7Qn8RLvQz60vrDSXwOPlVuwn15z+/0vtB+zrvQla/khTHgjPZwS2P4+m6XAzHe\nZbsr3gOm5rRUDaxUJuz7AkJ1gh2309yf9NRhai71oQKBgQDHMCkq5wdlf5ilZk5f\n3pCDLo9WBZvMnKN9JRD1QawTxjlHDtzlh2/hcNB6ymfAtZXQf2qqJdEExcfxfiC1\n26SW4zUxfUs5QDAd1HiRrkvTIzxJFe0ihHHXPksbDaSmq7FdmkdAcksmSJaAPW+r\nzrXYXgjg2IM7m5fKvlpKrC4fcQKBgQDFjg/Z8rESqzO6K9rI8YaRwYxgibd/ZUdW\naq5gSjEGHbkqjg+6oFhTI0gXIJrqMy9bM+h8VaIb0J4+6uqjUUDLAd8oc9/NQQCO\nDhCl8JzFLtl8nAJs8kkaPEJethoHLgowq0lPiR6MM2wjJmShgdXzjiuDX1BjiWQi\ndU1NGT125QKBgF0A17f4dzOlCBjyU9XfjYoyyypXJA+9c3iTPf/F0hrJiyTqg6mI\nO2z/x9gNebQ5FOJtG9imH5oi3uCbC5reG1N4cvXQkrcAiXbkJgefYjgLU7KsUjSz\nspPVuiu/iwlnUUFrL6mftAcEDYGDLgkCU1XbUjnp3hyO4akAiBglnMOBAoGBAK7b\nQe5/3/kNLZiv7lODa7+hF3XvD0qkQxMbE8LIiEHIlzcyTHu8JtFXXhySUGvQ6C6K\ncFF0niqOaTJ5TTtG1Nmai4HLpiCPU0Vo75VgtfHVuMyRbZguj0O4aGpaNgl616wi\nP541WKNxdFpcRh+pwsxzXtJFz+p6FfZl6wi9uWh9AoGBALJuNNqWw9z42CNMjc47\n+XUqlw9C1KTY+ia81uEX+K7OF2x6H19S/VzazdyE7HY6ybKwVVDYaG2uU4uWntjo\nMY6z4pj3u6PIcbs5GNdPhNtkuHPrLgbxbeEwRD4ErIMF4QiJIY95+AcnXxWQ+5EV\n57iGDQkSnPSOcDpYy75T06ay\n-----END PRIVATE KEY-----\n",
+  "client_email": "deploy-money-note@pc-api-6141591579667898980-492.iam.gserviceaccount.com",
+  "client_id": "104756327139436744490",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/deploy-money-note%40pc-api-6141591579667898980-492.iam.gserviceaccount.com"
+}
