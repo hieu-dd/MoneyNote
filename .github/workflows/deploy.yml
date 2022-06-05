@@ -40,8 +40,11 @@ jobs:
         run: flutter test
 
       # Build app release
-      - name: Run tests
+      - name: Build app bundle
         run: flutter build appbundle
+
+      - name: Copy release file
+        run: cp build/app/outputs/bundle/release/app-release.aab build/out/
 
       - name: Deploy to Alpha
         uses: r0adkll/upload-google-play@v1
