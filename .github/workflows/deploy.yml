@@ -39,6 +39,10 @@ jobs:
       - name: Run tests
         run: flutter test
 
+      # Build app release
+      - name: Run tests
+        run: flutter build appbundle
+
       - name: Deploy to Alpha
         uses: r0adkll/upload-google-play@v1
         with:
