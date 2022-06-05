@@ -44,12 +44,14 @@ jobs:
         run: flutter build appbundle
 
       - name: Copy release file
-        run: cp build/app/outputs/bundle/release/app-release.aab build/out/app-release.aab
+        run: |
+          mkdir build/out
+          cp build/app/outputs/bundle/release/app-release.aab build/out
 
       - name: Deploy to Alpha
         uses: r0adkll/upload-google-play@v1
         with:
           serviceAccountJson: ${{secrets.SERVICE_ACCOUNT}}
           packageName: com.d2b.dev.money_note
-          releaseFile: build/app/outputs/bundle/release/app-release.aab
+          releaseFile: build/out/app-release.aab
           track: production
