@@ -7,4 +7,9 @@ void main() {
     final expectString = testString.capitalize();
     expect(expectString, "Abc");
   });
+  test('Test orEmpty', () {
+    String? test;
+    final expectString = test.orEmpty();
+    expect(expectString, "Abc");
+  });
 }
