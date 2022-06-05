@@ -1,16 +1,15 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:money_note/models/transaction/transaction.dart';
 import 'package:money_note/providers/transaction/transactions.dart';
 import 'package:money_note/ui/transactions/transaction_item.dart';
-import 'package:money_note/widgets/app_bar.dart';
-import 'package:provider/provider.dart';
-import 'package:money_note/models/transaction/transaction.dart';
-import 'package:intl/intl.dart';
-import 'package:money_note/utils/ext/list_ext.dart';
 import 'package:money_note/utils/ext/double_ext.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:money_note/utils/ext/list_ext.dart';
+import 'package:provider/provider.dart';
+
 import '../../providers/category/categories.dart';
 import '../../widgets/empty_transactions.dart';
-import 'package:money_note/utils/ext/time_ext.dart';
 
 class TransactionContent extends StatelessWidget {
   final Map<String, DateTime> timeRange;
@@ -39,7 +38,14 @@ class TransactionContent extends StatelessWidget {
                         final time = item.time;
                         final spent = transactionsProvider.spentDay(time);
                         return Container(
-                          color: Colors.white,
+                          margin: const EdgeInsets.only(top: 6),
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              border: Border(
+                                  bottom: BorderSide(
+                                width: 0.2,
+                                color: Colors.grey,
+                              ))),
                           child: ListTile(
                             leading: CircleAvatar(
                               backgroundColor: Colors.transparent,

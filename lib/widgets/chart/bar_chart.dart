@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:fl_chart/fl_chart.dart';
-import 'package:money_note/utils/ext/double_ext.dart';
 import 'dart:math';
+
+import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/material.dart';
+import 'package:money_note/utils/ext/double_ext.dart';
 
 class TransactionsBarChart extends StatefulWidget {
   List<TransactionChartItem> chartItems;

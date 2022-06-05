@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
-import '../data/sharedpref/shared_preferences_helper.dart';
 import 'package:logger/logger.dart';
+
+import '../data/sharedpref/shared_preferences_helper.dart';
 
 class Module {
   static Dio provideDio(SharedPreferenceHelper sharedPrefHelper) {

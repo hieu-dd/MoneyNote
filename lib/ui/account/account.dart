@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:money_note/utils/ext/string_ext.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:money_note/utils/ext/string_ext.dart';
 
 class AccountScreen extends StatelessWidget {
   final _auth = FirebaseAuth.instance;
