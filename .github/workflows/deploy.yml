@@ -8,7 +8,7 @@ name: Flutter
 on:
   push:
     branches:
-      - 'releases/**'
+      - 'release/**'
 
 jobs:
   build:
