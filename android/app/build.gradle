@@ -51,16 +51,17 @@ android {
         applicationId "com.d2b.dev.money_note"
         minSdkVersion 21
         targetSdkVersion flutter.targetSdkVersion
-        versionCode 1_000_001
-        versionName "1.0.1"
+        versionCode 1_000_002
+        versionName "1.0.2"
     }
 
     signingConfigs {
         release {
-            keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']
-            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
-            storePassword keystoreProperties['storePassword']
+            keyAlias 'upload'
+            keyPassword '3131994no1'
+//            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+            storePassword '3131994no1'
+            storeFile file("../../upload-keystore.jks")
         }
     }
     buildTypes {
